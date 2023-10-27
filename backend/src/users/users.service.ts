@@ -1,26 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PrismaService } from 'src/prisma.service';
+import { enCrypt } from 'common/utils/bcrypt';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createUserDto: CreateUserDto) {
+    createUserDto.password = await enCrypt(createUserDto.password);
+    if (!createUserDto.email.endsWith('@aluno.feliz.ifrs.edu.br')) {
+      throw new HttpException('email is not accepted', 422);
+    }
+    return await this.prisma.users.create({
+      data: createUserDto,
+    });
   }
 
-  findAll() {
-    return `A LOT OF USERS!`;
+  async findAll() {
+    return await this.prisma.users.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(email: string) {
+    return await this.prisma.users.findUniqueOrThrow({
+      where: {
+        email,
+      },
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.email) {
+      throw new HttpException('email cannot be changed', 422);
+    }
+
+    return await this.prisma.users.update({
+      where: { id },
+      data: updateUserDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    try {
+      await this.prisma.users.findUniqueOrThrow({
+        where: {
+          id,
+        },
+      });
+    } catch (error) {
+      throw new HttpException('user cannot be found', 400);
+    }
+
+    return await this.prisma.users.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
