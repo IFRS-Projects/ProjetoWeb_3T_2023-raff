@@ -1,4 +1,8 @@
-<<<<<<< HEAD
+# Sobre o trabalho
+Integrantes: Rafael M. de Vargas, Kaua Vieira, Leonardo Gomes
+
+O intuito do projeto é fazer um sistema de classificação de filmes
+#
 # Projeto Final de Programação 3
 
 ### Definição
