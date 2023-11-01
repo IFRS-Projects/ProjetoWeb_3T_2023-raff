@@ -13,8 +13,18 @@ export class PrismaMovieService implements MoviesRepository {
       data: dto,
     });
   }
-  async findAll() {
-    return await this.prisma.movies.findMany();
+  async findAll(id: string) {
+    console.log(id);
+
+    return await this.prisma.movies.findMany({
+      where: {
+        user_likes: {
+          none: {
+            usersId: id,
+          },
+        },
+      },
+    });
   }
   async findOne(id: string) {
     try {

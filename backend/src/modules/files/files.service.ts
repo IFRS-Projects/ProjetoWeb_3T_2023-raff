@@ -4,8 +4,12 @@ import { Request } from 'express';
 @Injectable()
 export class FilesService {
   async create(file: Express.Multer.File, req: Request) {
-    const fullUrl = req.protocol.concat('://').concat(req.hostname);
-    return new URL(`/uploads/${file.filename}`, fullUrl).toString();
+    const fullUrl = req.protocol
+      .concat('://')
+      .concat(req.hostname)
+      .concat(':4000');
+
+    return new URL(`/img/${file.filename}`, fullUrl).toString();
   }
 
   // findAll() {

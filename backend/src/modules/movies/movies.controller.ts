@@ -17,6 +17,7 @@ import { FilesService } from '../files/files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import multerConfig from '../files/multer-config';
 import { Request } from 'express';
+import { UserId } from 'common/decorator/get-user-id.decorator';
 
 @Controller('movies')
 export class MoviesController {
@@ -33,16 +34,13 @@ export class MoviesController {
     @Req() req: Request,
   ) {
     const image_url = await this.fileService.create(file, req);
-    console.log(image_url);
-
     const newDto = { ...createMovieDto, image_url };
-    return newDto;
     return await this.moviesService.create(newDto);
   }
 
-  @Get()
-  async findAll() {
-    return await this.moviesService.findAll();
+  @Get('/')
+  async findAll(@UserId() userId: string) {
+    return await this.moviesService.findAll(userId);
   }
 
   @Get(':id')
