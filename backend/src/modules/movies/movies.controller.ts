@@ -1,0 +1,65 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+  Req,
+} from '@nestjs/common';
+import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
+import { MoviesRepository } from './repository/movies.repositorie';
+import { FilesService } from '../files/files.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerConfig from '../files/multer-config';
+import { Request } from 'express';
+
+@Controller('movies')
+export class MoviesController {
+  constructor(
+    private readonly moviesService: MoviesRepository,
+    private fileService: FilesService,
+  ) {}
+
+  @Post()
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  async create(
+    @Body() createMovieDto: CreateMovieDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: Request,
+  ) {
+    const image_url = await this.fileService.create(file, req);
+    console.log(image_url);
+
+    const newDto = { ...createMovieDto, image_url };
+    return newDto;
+    return await this.moviesService.create(newDto);
+  }
+
+  @Get()
+  async findAll() {
+    return await this.moviesService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.moviesService.findOne(id);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
+    return await this.moviesService.update(id, updateMovieDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return await this.moviesService.remove(id);
+  }
+}

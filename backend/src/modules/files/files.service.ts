@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { Request } from 'express';
 
 @Injectable()
 export class FilesService {
-  async create(file: Express.Multer.File) {
-    console.log(file);
-
-    return file;
+  async create(file: Express.Multer.File, req: Request) {
+    const fullUrl = req.protocol.concat('://').concat(req.hostname);
+    return new URL(`/uploads/${file.filename}`, fullUrl).toString();
   }
 
   // findAll() {

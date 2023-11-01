@@ -17,9 +17,6 @@ export class FilesController {
   @Post()
   @UseInterceptors(FileInterceptor('file', multerConfig))
   async upload(@UploadedFile() file: Express.Multer.File, @Req() req: Request) {
-    const createdFile = await this.filesService.create(file);
-
-    const fullUrl = req.protocol.concat('://').concat(req.hostname);
-    return new URL(`/files/${createdFile.filename}`, fullUrl).toString();
+    return await this.filesService.create(file, req);
   }
 }
