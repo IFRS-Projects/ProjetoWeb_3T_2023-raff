@@ -17,7 +17,7 @@ import { FilesService } from '../files/files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import multerConfig from '../files/multer-config';
 import { Request } from 'express';
-import { UserId } from 'common/decorator/get-user-id.decorator';
+import { UserId } from './../../../common/decorator/get-user-id.decorator';
 
 @Controller('movies')
 export class MoviesController {

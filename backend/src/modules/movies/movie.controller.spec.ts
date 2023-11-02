@@ -32,11 +32,19 @@ describe('MovieService', () => {
 
   describe('findAll', () => {
     it(`should return an array of movies`, async () => {
-      const response = await service.findAll();
+      const response = await service.findAll('asd');
 
       expect(response).toEqual(fakeMovies);
       expect(prisma.movies.findMany).toHaveBeenCalledTimes(1);
-      expect(prisma.movies.findMany).toHaveBeenCalledWith();
+      expect(prisma.movies.findMany).toHaveBeenCalledWith({
+        where: {
+          user_likes: {
+            none: {
+              usersId: 'asd',
+            },
+          },
+        },
+      });
     });
   });
 

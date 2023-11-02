@@ -14,8 +14,6 @@ export class PrismaMovieService implements MoviesRepository {
     });
   }
   async findAll(id: string) {
-    console.log(id);
-
     return await this.prisma.movies.findMany({
       where: {
         user_likes: {
@@ -23,6 +21,9 @@ export class PrismaMovieService implements MoviesRepository {
             usersId: id,
           },
         },
+      },
+      orderBy: {
+        love_amount: 'desc',
       },
     });
   }

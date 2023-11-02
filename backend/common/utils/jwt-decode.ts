@@ -1,6 +1,4 @@
-export const DecodeJwtToken = (authorization: string) => {
-  const [name, token] = authorization.split('=') ?? [];
-
+export const DecodeJwtToken = (token: string) => {
   const tokenSplited = token.split('.');
 
   if (tokenSplited.length < 3 || !tokenSplited[1]) {
