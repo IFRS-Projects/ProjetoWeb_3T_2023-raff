@@ -1,13 +1,10 @@
-'use client'
-import { Button } from '@/components/ui/button'
+import { getServerSession } from "next-auth"
 
-
-export default function FormZod() {
-
+export default async function Home() {
+  const session = await getServerSession()
   return (
     <main>
-      <p>Teste</p>
-      <Button>a </Button>
+      <p></p>
     </main>
   )
 }
