@@ -5,5 +5,5 @@ import { IsInt, IsOptional } from 'class-validator';
 export class UpdateMovieDto extends PartialType(CreateMovieDto) {
   @IsInt()
   @IsOptional()
-  public love_amount: number;
+  public love_amount?: number;
 }
