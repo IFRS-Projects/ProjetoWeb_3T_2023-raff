@@ -4,9 +4,9 @@ import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { jwtConstants } from './constants';
-import { PrismaService } from './../../prisma.service';
 import { UsersService } from '../users/users.service';
 import { PrismaUsersRepository } from '../users/users.prisma.repository';
+import { NestjsFormDataModule, MemoryStoredFile } from 'nestjs-form-data';
 
 @Module({
   imports: [
@@ -16,10 +16,10 @@ import { PrismaUsersRepository } from '../users/users.prisma.repository';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '600000s' },
     }),
+    NestjsFormDataModule.config({ storage: MemoryStoredFile }),
   ],
   providers: [
     AuthService,
-    PrismaService,
     {
       provide: UsersService,
       useClass: PrismaUsersRepository,

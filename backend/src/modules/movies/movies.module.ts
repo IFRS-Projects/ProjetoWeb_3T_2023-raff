@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
-import { PrismaService } from './../../prisma.service';
 import { PrismaMovieService } from './movie.prisma.service';
 import { MoviesRepository } from './repository/movies.repositorie';
 import { FilesService } from '../files/files.service';
@@ -12,7 +11,6 @@ import { FilesService } from '../files/files.service';
       provide: MoviesRepository,
       useClass: PrismaMovieService,
     },
-    PrismaService,
     FilesService,
   ],
 })

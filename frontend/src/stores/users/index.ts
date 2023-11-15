@@ -12,17 +12,3 @@ type StoreProps = {
     getState: () => user
   }
 }
-
-export const AuthStore = create<StoreProps>()(
-  (set, get) => ({
-    state: {
-      user: { id: 0, name: '' }
-    },
-    actions: {
-      getState: () => get().state.user,
-      update: (user) => {
-        set({ state: { user } })
-      }
-    }
-  })
-)

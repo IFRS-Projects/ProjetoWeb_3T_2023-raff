@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { AuthStore } from "@/stores/auth";
+import { useAuthStore } from "../../../hooks/useAuthStore";
 
 const schema = z.object({
   email: z.string().email('O campo deve ser um email').refine((value) => value.endsWith('@aluno.feliz.ifrs.edu.br'), {
@@ -13,10 +15,16 @@ const schema = z.object({
   password: z.string()
 })
 
+
 type formProps = z.infer<typeof schema>
 
 export default function FormLogin() {
   const { push } = useRouter()
+
+  const user = useAuthStore(AuthStore, (state) => state.state.user)
+  const {
+    actions:{ login }
+  } = AuthStore()
 
   const { handleSubmit, register, formState: { errors } } = useForm<formProps>({
     mode: 'all',
@@ -24,8 +32,14 @@ export default function FormLogin() {
     resolver: zodResolver(schema)
   })
 
-  const handleForm = (data: formProps) => {
+  const handleForm = async (data: formProps) => {
+    const token = await login(data)
 
+    console.log("user from storage: ",user);
+    console.log("API response: ", token);
+
+    push(`/API/auth/user/login?token=${token}`)
+    
   }
   return (
     <form onSubmit={handleSubmit(handleForm)} className="flex flex-col items-center mt-20">
