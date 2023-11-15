@@ -1,5 +1,4 @@
 import { TestingModule, Test } from '@nestjs/testing';
-import { PrismaService } from './../../prisma.service';
 import {
   prismaMock,
   fakeMovies,
@@ -7,6 +6,7 @@ import {
 import { PrismaMovieService } from './movie.prisma.service';
 import { MoviesRepository } from './repository/movies.repositorie';
 import { NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 
 describe('MovieService', () => {
   let service: MoviesRepository;

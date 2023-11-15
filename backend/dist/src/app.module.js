@@ -10,17 +10,26 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const prisma_service_1 = require("./prisma.service");
 const auth_module_1 = require("./modules/auth/auth.module");
 const users_module_1 = require("./modules/users/users.module");
 const files_module_1 = require("./modules/files/files.module");
 const movies_module_1 = require("./modules/movies/movies.module");
+const prisma_module_1 = require("./modules/prisma/prisma.module");
+const prisma_service_1 = require("./modules/prisma/prisma.service");
+const nestjs_form_data_1 = require("nestjs-form-data");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, auth_module_1.AuthModule, files_module_1.FilesModule, movies_module_1.MoviesModule],
+        imports: [
+            users_module_1.UsersModule,
+            auth_module_1.AuthModule,
+            files_module_1.FilesModule,
+            movies_module_1.MoviesModule,
+            prisma_module_1.PrismaModule,
+            nestjs_form_data_1.NestjsFormDataModule.config({ storage: nestjs_form_data_1.MemoryStoredFile }),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, prisma_service_1.PrismaService],
     })

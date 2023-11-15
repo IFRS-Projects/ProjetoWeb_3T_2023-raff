@@ -5,10 +5,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { enCrypt } from './../../../common/utils/bcrypt';
-import { PrismaService } from './../../../src/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class PrismaUsersRepository implements UsersService {

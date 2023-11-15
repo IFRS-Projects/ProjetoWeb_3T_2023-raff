@@ -6,18 +6,24 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { enCrypt } from './../../../common/utils/bcrypt';
+import { UserId } from 'common/decorator/get-user-id.decorator';
+import { FormDataRequest } from 'nestjs-form-data';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('/')
+  @FormDataRequest()
   async create(@Body() createUserDto: CreateUserDto) {
+    console.log('body :', JSON.parse(JSON.stringify(createUserDto)));
+
     return await this.usersService.create(createUserDto);
   }
 
@@ -31,16 +37,17 @@ export class UsersController {
     return this.usersService.findOne(email);
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  @Patch()
+  async update(@UserId() id: string, @Body() updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       updateUserDto.password = await enCrypt(updateUserDto.password);
     }
     return this.usersService.update(id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @HttpCode(204)
+  @Delete('/')
+  remove(@UserId() id: string) {
     return this.usersService.remove(id);
   }
 }
