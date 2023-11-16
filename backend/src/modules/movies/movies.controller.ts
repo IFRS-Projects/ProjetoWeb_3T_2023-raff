@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -23,7 +24,7 @@ import { FormDataRequest } from 'nestjs-form-data';
 export class MoviesController {
   constructor(
     private readonly moviesService: MoviesRepository,
-    private fileService: FilesService,
+    private readonly fileService: FilesService,
   ) {}
 
   @Post()
@@ -43,8 +44,12 @@ export class MoviesController {
   async findAll(@UserId() userId: string) {
     return await this.moviesService.findAll(userId);
   }
+  @Get('/rank')
+  async findRank() {
+    return await this.moviesService.findRank();
+  }
 
-  @Get(':id')
+  @Get('/:id')
   async findOne(@Param('id') id: string) {
     return await this.moviesService.findOne(id);
   }
@@ -54,7 +59,14 @@ export class MoviesController {
   async update(
     @Param('id') id: string,
     @Body() updateMovieDto: UpdateMovieDto,
+    @UserId() userId: string,
   ) {
+    if (!userId) {
+      throw new UnauthorizedException('User not logged');
+    }
+    if (updateMovieDto.love_amount) {
+      await this.moviesService.createLike(userId, id);
+    }
     return await this.moviesService.update(id, updateMovieDto);
   }
 

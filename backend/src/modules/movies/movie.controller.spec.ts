@@ -2,6 +2,7 @@ import { TestingModule, Test } from '@nestjs/testing';
 import {
   prismaMock,
   fakeMovies,
+  fakeClassifedMovies,
 } from './../../../test/repositories/movies.repositorie.data';
 import { PrismaMovieService } from './movie.prisma.service';
 import { MoviesRepository } from './repository/movies.repositorie';
@@ -41,6 +42,27 @@ describe('MovieService', () => {
           user_likes: {
             none: {
               usersId: 'asd',
+            },
+          },
+        },
+      });
+    });
+  });
+
+  describe('findRank', () => {
+    //  TODO rework this test
+    it(`should return an array of movies when movie is classfied`, async () => {
+      const r = await service.findRank();
+
+      expect(r).toEqual(fakeClassifedMovies);
+      expect(prisma.movies.findMany).toHaveBeenCalledTimes(1);
+      expect(prisma.movies.findMany).toHaveBeenCalledWith({
+        where: {
+          user_likes: {
+            some: {
+              moviesId: {
+                not: 'null',
+              },
             },
           },
         },
