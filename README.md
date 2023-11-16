@@ -31,7 +31,7 @@ Abaixo são especificadas regras que incidem sobre o usuo do sistema:
 - [x] A pessoa usuária não pode alterar seu e-mail
 - [x] O e-mail da pessoa usuária deve ser do domínio @aluno.feliz.ifrs.edu.br
 - [x] Um item consiste em uma imagem de algo
-- [ ] O ranking deve ser ordenado pelo número de avaliações positivas ou negativas
+- [x] O ranking deve ser ordenado pelo número de avaliações positivas ou negativas
 - [ ] O sistema deve iniciar com pelo menos 15 itens cadastrados
 - [x] Uma pessoa só pode votar uma vez em cada item
 
