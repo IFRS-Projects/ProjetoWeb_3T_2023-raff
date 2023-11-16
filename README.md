@@ -22,8 +22,8 @@ O sistema deve possuir dois papéis para as pessoas que vão o utilizar com perm
 #### Gerente
 - [x] A pessoa que será gerente deve ser cadastrada no banco previamente (user: admin e password: senha123)
 - [x] Fazer login e logout no sistema
-- [ ] Visualizar ranking dos itens classificados
-- [ ] Ordenar de forma crescente ou decrescente o ranking de classificações
+- [x] Visualizar ranking dos itens classificados
+- [x] Ordenar de forma crescente ou decrescente o ranking de classificações
 - [x] Listar, adicionar, editar e excluir itens
 
 ### Regras de negócio
