@@ -36,10 +36,12 @@ export default function List() {
               </div>
               <div className="w-full flex m-6 gap-6">
                 <Button className="rounded-full" onClick={async () => {
-                  await api.movies.update
+                  await api.movies.update(movie.id,{love_amount: 1})
                 }}><ArrowFatLineUp size={25} /></Button>
                 <Separator orientation="vertical" className="h-8"></Separator>
-                <Button className="rounded-full"><ArrowFatLineDown size={25} /></Button>
+                <Button className="rounded-full" onClick={async () => {
+                  await api.movies.update(movie.id,{love_amount: -1})
+                }}><ArrowFatLineDown size={25} /></Button>
               </div>
             </div>
           )

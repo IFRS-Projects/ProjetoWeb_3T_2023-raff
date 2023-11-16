@@ -67,7 +67,11 @@ export class MoviesController {
     if (updateMovieDto.love_amount) {
       await this.moviesService.createLike(userId, id);
     }
-    return await this.moviesService.update(id, updateMovieDto);
+
+    return await this.moviesService.update(id, {
+      ...updateMovieDto,
+      love_amount: Number(updateMovieDto.love_amount),
+    });
   }
 
   @Delete(':id')

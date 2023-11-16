@@ -44,24 +44,20 @@ export class PrismaMovieService implements MoviesRepository {
   }
 
   async findRank() {
-    try {
-      return await this.prisma.movies.findMany({
-        where: {
-          user_likes: {
-            some: {
-              moviesId: {
-                not: 'null',
-              },
+    return await this.prisma.movies.findMany({
+      where: {
+        user_likes: {
+          some: {
+            moviesId: {
+              not: 'null',
             },
           },
         },
-        orderBy: {
-          love_amount: 'desc',
-        },
-      });
-    } catch (error) {
-      throw new HttpException('Not movies found', 404);
-    }
+      },
+      orderBy: {
+        love_amount: 'desc',
+      },
+    });
   }
   async update(id: string, updateMovieDto: UpdateMovieDto) {
     try {
@@ -102,7 +98,10 @@ export class PrismaMovieService implements MoviesRepository {
       const UserLikedSomeMovie: boolean =
         (await this.prisma.user_likes.count({
           where: {
-            usersId: userId,
+            moviesId: movieId,
+            AND: {
+              usersId: userId,
+            },
           },
         })) > 0;
       if (UserLikedSomeMovie) {

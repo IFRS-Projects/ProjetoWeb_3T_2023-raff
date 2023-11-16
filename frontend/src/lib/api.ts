@@ -169,6 +169,9 @@ export default {
     delete: async (): Promise<resultType<{}>> => {
       return await basicFetch('DELETE', `users/`, {}, {})
     },
+    rank: async (): Promise<resultType<{data: movieType[]}>> => {
+      return await basicFetch('GET', `movies/rank`, {}, {})
+    },
   }
 
 }
