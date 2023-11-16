@@ -13,15 +13,15 @@ export default function List() {
   const getMovies = async () => {
     const allMovies = await api.movies.findAll()
     console.log(allMovies.data);
-    
+
     setMovies(allMovies.data)
   }
-  useEffect(() => { 
+  useEffect(() => {
     getMovies()
-  },[])
+  }, [])
 
   console.log(movies);
-  
+
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl">
       {
@@ -29,25 +29,25 @@ export default function List() {
           return (
             <div key={movie.id}>
               <div className="w-full m-6">
-                <span className="text-3xl font-bold">{ movie.title}</span>
+                <span className="text-3xl font-bold">{movie.title}</span>
               </div>
               <div className="w-full m-6 flex">
                 <Image className="w-11/12 h-3/4 bg-figma-gray" src={movie.image_url} width={400} height={210} alt="wallpaper movies" />
               </div>
               <div className="w-full flex m-6 gap-6">
                 <Button className="rounded-full" onClick={async () => {
-                  await api.movies.update(movie.id,{love_amount: 1})
+                  await api.movies.update(movie.id, { love_amount: 1 })
                 }}><ArrowFatLineUp size={25} /></Button>
                 <Separator orientation="vertical" className="h-8"></Separator>
                 <Button className="rounded-full" onClick={async () => {
-                  await api.movies.update(movie.id,{love_amount: -1})
+                  await api.movies.update(movie.id, { love_amount: -1 })
                 }}><ArrowFatLineDown size={25} /></Button>
               </div>
             </div>
           )
         })
       }
-      
+
     </div>
   )
 }

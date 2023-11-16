@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
   async redirects() {
     return [{
       source: '/',
@@ -8,8 +9,8 @@ const nextConfig = {
     }]
   },
   images: {
-    domains: ['127.0.0.1','localhost'],
+    domains: ['127.0.0.1', 'localhost', 'i.scdn.co'],
   },
- }
+}
 
 module.exports = nextConfig

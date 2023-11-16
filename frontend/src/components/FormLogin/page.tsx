@@ -23,7 +23,7 @@ export default function FormLogin() {
 
   const user = useAuthStore(AuthStore, (state) => state.state.user)
   const {
-    actions:{ login }
+    actions: { login }
   } = AuthStore()
 
   const { handleSubmit, register, formState: { errors } } = useForm<formProps>({
@@ -35,8 +35,16 @@ export default function FormLogin() {
   const handleForm = async (data: formProps) => {
     const token = await login(data)
 
+<<<<<<< HEAD
     push(`/API/auth/user/login?token=${token}&route=/home`)
     
+=======
+    console.log("user from storage: ", user);
+    console.log("API response: ", token);
+
+    push(`/API/auth/user/login?token=${token}`)
+
+>>>>>>> d906078a (teste)
   }
   return (
     <form onSubmit={handleSubmit(handleForm)} className="flex flex-col items-center mt-20">
