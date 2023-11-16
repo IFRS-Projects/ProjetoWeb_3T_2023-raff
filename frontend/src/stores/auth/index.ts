@@ -42,8 +42,6 @@ export const AuthStore = create<StoreProps>()(
           }
         },
         logout: () => {
-          console.log('execute logout function')
-
           set({
             state: {
               user: {

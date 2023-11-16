@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { createUserType, updateUserType, userLogin, userType } from './types/user'
+import { createMovieType, movieType, updateMovieType } from './types/movie'
 
 const api = axios.create({
   withCredentials: true,
@@ -149,6 +150,24 @@ export default {
   auth: {
     login: async (userData:userLogin): Promise<resultType<{access_token:string}>> => {
       return await basicFetch('POST', `auth/login`, {...userData}, {})
+    },
+  },
+  movies: {
+    create: async (movieData:createMovieType): Promise<resultType<{ data: movieType}>> => {
+      return await basicFetch('POST', `movies`, {...movieData}, {})
+    },
+    findAll: async (): Promise<resultType<{ data: movieType[]}>> => {
+      return await basicFetch('GET', 'movies/', {}, {})
+    },
+    findOne: async (email:string): Promise<resultType<{ data: userType}>> => {
+      return await basicFetch('GET', `users/${email}`, {}, {})
+    },
+
+    update: async (id:string,movieData:updateMovieType): Promise<resultType<{ data: movieType}>> => {
+      return await basicFetch('PATCH', `movies/${id}`, {...movieData}, {})
+    },
+    delete: async (): Promise<resultType<{}>> => {
+      return await basicFetch('DELETE', `users/`, {}, {})
     },
   }
 

@@ -1,20 +1,26 @@
 'use client'
-import { Button } from "@/components/ui/button";
 import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 import { Separator } from "@/components/ui/separator";
 import logo from '@/img/logo.svg'
 import title from '@/img/title-name.svg'
 import Image from "next/image";
-import teste from '@/img/img.svg'
 import { useState } from "react";
 import List from '@/components/List/page'
 import Create from '@/components/FormCreate/page'
 import Edit from '@/components/FormEdit/page'
 import Rank from '@/components/Rank/page'
-
+import { User } from "@phosphor-icons/react";
+import { useAuthStore } from "../../../hooks/useAuthStore";
+import { AuthStore } from "@/stores/auth";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [page, setPage] = useState<number>(1)
+  const { push } = useRouter()
+  const { actions: {
+    logout
+  }} = AuthStore()
+  const user = useAuthStore(AuthStore,(store) => store.state.user)
   return (
     <div className='min-h-screen flex flex-col bg-background'>
       <div className="px-6 py-3 flex items-center justify-between border-b bg-figma-gray">
@@ -29,14 +35,22 @@ export default function Home() {
           <Menubar className="bg-figma-gray">
             <MenubarMenu>
               <MenubarTrigger className="rounded-xl">
-                User
+                <User size={18} />
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem className="rounded-xl">
+              { user?.sub !== '' ? 
+                  <MenubarItem className="rounded-xl" onClick={() => {
+                    logout()
+                    push('/API/auth/user/logout')
+                }}>
                   Logout
                 </MenubarItem>
-
-              </MenubarContent>
+                :
+                  <MenubarItem className="rounded-xl" onClick={() => {
+                    push('/user/login')
+                  }}>login</MenubarItem>
+              }
+                </MenubarContent>
             </MenubarMenu>
           </Menubar>
         </div>

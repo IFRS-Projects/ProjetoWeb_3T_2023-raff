@@ -35,10 +35,7 @@ export default function FormLogin() {
   const handleForm = async (data: formProps) => {
     const token = await login(data)
 
-    console.log("user from storage: ",user);
-    console.log("API response: ", token);
-
-    push(`/API/auth/user/login?token=${token}`)
+    push(`/API/auth/user/login?token=${token}&route=/home`)
     
   }
   return (

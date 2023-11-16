@@ -22,8 +22,6 @@ export class UsersController {
   @Post('/')
   @FormDataRequest()
   async create(@Body() createUserDto: CreateUserDto) {
-    console.log('body :', JSON.parse(JSON.stringify(createUserDto)));
-
     return await this.usersService.create(createUserDto);
   }
 
@@ -38,6 +36,7 @@ export class UsersController {
   }
 
   @Patch()
+  @FormDataRequest()
   async update(@UserId() id: string, @Body() updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       updateUserDto.password = await enCrypt(updateUserDto.password);

@@ -18,7 +18,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import multerConfig from '../files/multer-config';
 import { Request } from 'express';
 import { UserId } from './../../../common/decorator/get-user-id.decorator';
-
+import { FormDataRequest } from 'nestjs-form-data';
 @Controller('movies')
 export class MoviesController {
   constructor(
@@ -33,6 +33,7 @@ export class MoviesController {
     @UploadedFile() file: Express.Multer.File,
     @Req() req: Request,
   ) {
+    console.log(file);
     const image_url = await this.fileService.create(file, req);
     const newDto = { ...createMovieDto, image_url };
     return await this.moviesService.create(newDto);
@@ -49,6 +50,7 @@ export class MoviesController {
   }
 
   @Patch(':id')
+  @FormDataRequest()
   async update(
     @Param('id') id: string,
     @Body() updateMovieDto: UpdateMovieDto,

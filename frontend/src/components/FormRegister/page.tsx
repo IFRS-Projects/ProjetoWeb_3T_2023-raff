@@ -3,16 +3,18 @@ import { Button } from "../ui/button";
 import { Input } from "@/components/Input/Input";
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { useForm } from "react-hook-form";
+import api from "@/lib/api";
+import { AuthStore } from "@/stores/auth";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
-  user: z.string().min(3, 'O nome de usuário deve conter mais de 3 caracteres'),
+  name: z.string().min(3, 'O nome de usuário deve conter mais de 3 caracteres'),
   email: z.string().email('O campo deve ser um email').refine((value) => value.endsWith('@aluno.feliz.ifrs.edu.br'), {
     message: 'O dominio de email deve ser @aluno.feliz.ifrs.edu.br'
   }),
   password: z.string().min(8, 'A senha deve conter no minímo de 8 caracteres'),
-  confirmPassword: z.string()
+  confirmPassword: z.string().optional()
 }).refine(({ password, confirmPassword }) => password === confirmPassword, {
   path: ['confirmPassword'],
   message: 'As senhas precisam ser iguais.'
@@ -26,17 +28,27 @@ export default function FormRegister() {
     reValidateMode: 'onChange',
     resolver: zodResolver(schema)
   })
+  const { push } = useRouter()
+  const {actions:{login}} = AuthStore()
 
-  const handleForm = (data: formProps) => {
-
+  const handleForm = async (data: formProps) => {
+    delete data.confirmPassword
+    const r = await api.user.create(data)
+    if (r.success) {
+      const token = await login({
+        email: data.email,
+        password: data.password
+      })
+      push(`/API/auth/user/login?token=${token}`)
+    }
   }
   return (
     <form onSubmit={handleSubmit(handleForm)} className="flex flex-col items-center mt-20">
       <Input
         label="Usuário"
         type="text"
-        {...register('user')} />
-      {!!errors.user?.message ? <p className='text-red-600 text-sm'>{errors.user.message}</p> : ''}
+        {...register('name')} />
+      {!!errors.name?.message ? <p className='text-red-600 text-sm'>{errors.name.message}</p> : ''}
       <Input
         label="Email"
         type="email"
