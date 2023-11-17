@@ -13,7 +13,7 @@ export default function Rank() {
   const getMovies = async () => {
     const allMovies = await api.movies.rank()
     console.log(allMovies.data);
-    
+    // @ts-ignore
     setMovies(allMovies.data)
   }
   useEffect(() => { 

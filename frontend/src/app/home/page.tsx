@@ -14,6 +14,7 @@ import { useAuthStore } from "../../../hooks/useAuthStore";
 import { AuthStore } from "@/stores/auth";
 import { useRouter } from "next/navigation";
 
+
 export default function Home() {
   const [page, setPage] = useState<number>(1)
   const { push } = useRouter()
@@ -21,6 +22,9 @@ export default function Home() {
     logout
   }} = AuthStore()
   const user = useAuthStore(AuthStore,(store) => store.state.user)
+
+
+  
   return (
     <div className='min-h-screen flex flex-col bg-background'>
       <div className="px-6 py-3 flex items-center justify-between border-b bg-figma-gray">

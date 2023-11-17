@@ -3,10 +3,13 @@ import { ArrowFatLineUp, ArrowFatLineDown } from "@phosphor-icons/react";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
-import teste from '@/img/img.svg'
 import { useEffect, useState } from "react";
 import { movieType } from "@/lib/types/movie";
 import api from "@/lib/api";
+import { AnimatePresence } from "framer-motion";
+import Card from "../Card";
+
+import Lights from '@/utils/lights.png';
 
 export default function List() {
   const [movies, setMovies] = useState<movieType[]>([])
@@ -14,39 +17,63 @@ export default function List() {
     const allMovies = await api.movies.findAll()
     console.log(allMovies.data);
 
+    // @ts-ignore
     setMovies(allMovies.data)
   }
+
+  const [rightSwipe, setRightSwipe] = useState(0);
+  const [leftSwipe, setLeftSwipe] = useState(0);
+
+  const activeIndex = movies.length - 1;
+  const removeCard = (id: string, action: 'right' | 'left') => {
+    setMovies((prev) => prev.filter((movie) => movie.id !== id));
+    if (action === 'right') {
+      setRightSwipe((prev) => prev + 1);
+    } else {
+      setLeftSwipe((prev) => prev + 1);
+    }
+  };
+
+  const stats = [
+    {
+      name: 'Left',
+      count: leftSwipe,
+    },
+    {
+      name: 'Right',
+      count: rightSwipe,
+    },
+  ];
   useEffect(() => {
     getMovies()
   }, [])
 
-  console.log(movies);
 
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl">
-      {
-        movies.map(movie => {
-          return (
-            <div key={movie.id}>
-              <div className="w-full m-6">
-                <span className="text-3xl font-bold">{movie.title}</span>
-              </div>
-              <div className="w-full m-6 flex">
-                <Image className="w-11/12 h-3/4 bg-figma-gray" src={movie.image_url} width={400} height={210} alt="wallpaper movies" />
-              </div>
-              <div className="w-full flex m-6 gap-6">
-                <Button className="rounded-full" onClick={async () => {
-                  await api.movies.update(movie.id, { love_amount: 1 })
-                }}><ArrowFatLineUp size={25} /></Button>
-                <Separator orientation="vertical" className="h-8"></Separator>
-                <Button className="rounded-full" onClick={async () => {
-                  await api.movies.update(movie.id, { love_amount: -1 })
-                }}><ArrowFatLineDown size={25} /></Button>
-              </div>
-            </div>
-          )
-        })
-      }
+    <div className="relative flex h-screen w-full items-center justify-center overflow-clip bg-bgBlack text-textGrey">
+      <div className="absolute bottom-0 h-[50%] w-screen scale-125 sm:h-[80%] sm:scale-110 md:scale-100">
+        
+      </div>
+      <AnimatePresence>
+        {movies.length ? (
+          movies.map((movie,idx) => (
+            <Card
+              key={movie.id}
+              data={movie}
+              active={idx === activeIndex}
+              removeCard={removeCard}
+            />
+          ))
+        ) : (
+          <h2 className="absolute z-10 text-center text-2xl font-bold text-textGrey ">
+            
+            Volte amanhã para mais!
+          </h2>
+        )}
+      </AnimatePresence>
+      
+    </div>
 
     </div>
   )

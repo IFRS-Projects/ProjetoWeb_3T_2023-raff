@@ -35,7 +35,6 @@ export default function Create() {
         "Content-Type": "multipart/form-data",
       },
     };
-    const {push} = useRouter()
 
     const formData = new FormData()
     formData.append('file', data.file)

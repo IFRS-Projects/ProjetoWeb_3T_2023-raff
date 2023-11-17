@@ -166,8 +166,8 @@ export default {
     update: async (id:string,movieData:updateMovieType): Promise<resultType<{ data: movieType}>> => {
       return await basicFetch('PATCH', `movies/${id}`, {...movieData}, {})
     },
-    delete: async (): Promise<resultType<{}>> => {
-      return await basicFetch('DELETE', `users/`, {}, {})
+    delete: async (id:string): Promise<resultType<{}>> => {
+      return await basicFetch('DELETE', `movies/${id}`, {}, {})
     },
     rank: async (): Promise<resultType<{data: movieType[]}>> => {
       return await basicFetch('GET', `movies/rank`, {}, {})
