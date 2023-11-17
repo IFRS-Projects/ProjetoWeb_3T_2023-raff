@@ -1,0 +1,5 @@
+GET http://localhost:4000/users/ HTTP/1.1
+
+###
+
+GET http://localhost:4000/users/carlinhos@aluno.feliz.edu.br HTTP/1.1
