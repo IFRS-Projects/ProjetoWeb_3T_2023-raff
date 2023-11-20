@@ -33,6 +33,10 @@ export class PrismaMovieService implements MoviesRepository {
       },
     });
   }
+
+  async list() {
+    return await this.prisma.movies.findMany();
+  }
   async findOne(id: string) {
     try {
       return await this.prisma.movies.findUnique({
@@ -118,10 +122,13 @@ export class PrismaMovieService implements MoviesRepository {
     }
   }
   async remove(id: string) {
-    try {
-      await this.prisma.movies.delete({ where: { id } });
-    } catch (error) {
-      throw new NotFoundException();
-    }
+    const r = await this.prisma.movies.findUnique({
+      where: {
+        id,
+      },
+    });
+    console.log(r);
+
+    return await this.prisma.movies.delete({ where: { id } });
   }
 }

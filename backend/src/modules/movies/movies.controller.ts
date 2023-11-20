@@ -10,6 +10,7 @@ import {
   UploadedFile,
   Req,
   UnauthorizedException,
+  HttpCode,
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -34,7 +35,7 @@ export class MoviesController {
     @UploadedFile() file: Express.Multer.File,
     @Req() req: Request,
   ) {
-    console.log(file);
+    console.log(createMovieDto);
     const image_url = await this.fileService.create(file, req);
     const newDto = { ...createMovieDto, image_url };
     return await this.moviesService.create(newDto);
@@ -47,6 +48,10 @@ export class MoviesController {
   @Get('/rank')
   async findRank() {
     return await this.moviesService.findRank();
+  }
+  @Get('/list')
+  async list() {
+    return await this.moviesService.list();
   }
 
   @Get('/:id')
@@ -74,6 +79,7 @@ export class MoviesController {
     });
   }
 
+  @HttpCode(204)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.moviesService.remove(id);

@@ -7,6 +7,7 @@ services:
       - 4000:4000
     volumes:
       - .:/home/node/app
+    command: /bin/sh -c "while sleep 1000; do :; done"
 
   postgresdb:
     image: postgres:latest
