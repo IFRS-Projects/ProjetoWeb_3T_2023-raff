@@ -14,6 +14,7 @@ export default function List() {
     const allMovies = await api.movies.findAll()
     console.log(allMovies.data);
 
+    // @ts-ignore
     setMovies(allMovies.data)
   }
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function List() {
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl">
       {
-        movies.map(movie => {
+        movies.map((movie) => {
           return (
             <div key={movie.id}>
               <div className="w-full m-6">

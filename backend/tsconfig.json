@@ -15,7 +15,10 @@
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "types": ["@types/jest", "@quramy/jest-prisma"],
+    "types": [
+      "@types/jest",
+      "@quramy/jest-prisma"
+    ],
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   }
