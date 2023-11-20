@@ -18,6 +18,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/themes": "^1.1.2",
+    "@rocketseat/eslint-config": "^2.1.0",
     "@types/node": "20.5.8",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -25,7 +26,6 @@
     "axios": "^1.6.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.5",
     "jwt-decode": "^4.0.0",
@@ -38,6 +38,7 @@
     "react-hook-form": "^7.45.4",
     "react-tinder-card": "^1.6.4",
     "react-use-state": "^0.0.1",
+    "sonner": "^1.2.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
@@ -47,6 +48,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "eslint": "^8.53.0",
     "jwt-decode": "^4.0.0"
   }
 }

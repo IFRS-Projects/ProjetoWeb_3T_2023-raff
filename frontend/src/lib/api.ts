@@ -54,23 +54,23 @@ const basicFetch = async (
       r =
         method === 'POST'
           ? await api.post(`/${endpoint}`, buildParamString(params), {
-              validateStatus: function (status) {
-                return true
-              },
-              headers,
-            })
+            validateStatus: function (status) {
+              return true
+            },
+            headers,
+          })
           : method === 'GET'
-          ? await simpleBasicFetch(endpoint, buildParamString(params), headers)
-          : method === 'PATCH' ?
-            await api.patch(`/${endpoint}`,buildParamString(params), {
-              validateStatus: function (status) {
-                return true
-              },
-              headers,
-            })
-          : method === 'DELETE'
-          ? await api.delete(`/${endpoint}`)
-          : false
+            ? await simpleBasicFetch(endpoint, buildParamString(params), headers)
+            : method === 'PATCH' ?
+              await api.patch(`/${endpoint}`, buildParamString(params), {
+                validateStatus: function (status) {
+                  return true
+                },
+                headers,
+              })
+              : method === 'DELETE'
+                ? await api.delete(`/${endpoint}`)
+                : false
     } catch (e: any) {
       r = e.response
     }
@@ -130,46 +130,46 @@ const buildParamString = (params: any) => {
 
 export default {
   user: {
-    findAll: async (): Promise<resultType<{ data: userType[]}>> => {
+    findAll: async (): Promise<resultType<{ data: userType[] }>> => {
       return await basicFetch('GET', 'users/', {}, {})
     },
-    findOne: async (email:string): Promise<resultType<{ data: userType}>> => {
+    findOne: async (email: string): Promise<resultType<{ data: userType }>> => {
       return await basicFetch('GET', `users/${email}`, {}, {})
     },
 
-    create: async (userData:createUserType): Promise<resultType<{ data: userType}>> => {
-      return await basicFetch('POST', `users/`, {...userData}, {})
+    create: async (userData: createUserType): Promise<resultType<{ data: userType }>> => {
+      return await basicFetch('POST', `users/`, { ...userData }, {})
     },
-    update: async (userData:updateUserType): Promise<resultType<{ data: userType}>> => {
-      return await basicFetch('PATCH', `users/`, {...userData}, {})
+    update: async (userData: updateUserType): Promise<resultType<{ data: userType }>> => {
+      return await basicFetch('PATCH', `users/`, { ...userData }, {})
     },
     delete: async (): Promise<resultType<{}>> => {
       return await basicFetch('DELETE', `users/`, {}, {})
     },
   },
   auth: {
-    login: async (userData:userLogin): Promise<resultType<{access_token:string}>> => {
-      return await basicFetch('POST', `auth/login`, {...userData}, {})
+    login: async (userData: userLogin): Promise<resultType<{ access_token: string }>> => {
+      return await basicFetch('POST', `auth/login`, { ...userData }, {})
     },
   },
   movies: {
-    create: async (movieData:createMovieType): Promise<resultType<{ data: movieType}>> => {
-      return await basicFetch('POST', `movies`, {...movieData}, {})
+    create: async (movieData: createMovieType): Promise<resultType<{ data: movieType }>> => {
+      return await basicFetch('POST', `movies`, { ...movieData }, {})
     },
-    findAll: async (): Promise<resultType<{ data: movieType[]}>> => {
+    findAll: async (): Promise<resultType<{ data: movieType[] }>> => {
       return await basicFetch('GET', 'movies/', {}, {})
     },
-    findOne: async (email:string): Promise<resultType<{ data: userType}>> => {
+    findOne: async (email: string): Promise<resultType<{ data: userType }>> => {
       return await basicFetch('GET', `users/${email}`, {}, {})
     },
 
-    update: async (id:string,movieData:updateMovieType): Promise<resultType<{ data: movieType}>> => {
-      return await basicFetch('PATCH', `movies/${id}`, {...movieData}, {})
+    update: async (id: string, movieData: updateMovieType): Promise<resultType<{ data: movieType }>> => {
+      return await basicFetch('PATCH', `movies/${id}`, { ...movieData }, {})
     },
-    delete: async (): Promise<resultType<{}>> => {
-      return await basicFetch('DELETE', `users/`, {}, {})
+    delete: async (id: string): Promise<resultType<{}>> => {
+      return await basicFetch('DELETE', `movies/${id}`, {}, {})
     },
-    rank: async (): Promise<resultType<{data: movieType[]}>> => {
+    rank: async (): Promise<resultType<{ data: movieType[] }>> => {
       return await basicFetch('GET', `movies/rank`, {}, {})
     },
   }

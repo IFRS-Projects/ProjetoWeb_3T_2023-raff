@@ -1,3 +1,4 @@
+import api from '@/lib/api';
 import { SwipeButtonProps } from '@/types/cards';
 
 export default function SwButtons({
@@ -16,16 +17,23 @@ export default function SwButtons({
   return (
     <div className="flex items-center space-x-8 absolute top-10">
       <button
-        onClick={() => handleSwipe('left')}
+        onClick={async () => {
+          handleSwipe('left')
+          await api.movies.update(id, { love_amount: 1 })
+        }}
         className="px-3 py-2 bg-teal-800 text-textGrey font-semibold rounded-md"
       >
-        Left
+        Assito
       </button>
       <button
-        onClick={() => handleSwipe('right')}
+        onClick={async () => {
+          handleSwipe('right')
+          await api.movies.update(id, { love_amount: -1 })
+        }
+        }
         className="px-3 py-2 bg-teal-800 text-textGrey font-semibold rounded-md"
       >
-        Right
+        Não assisto
       </button>
     </div>
   );

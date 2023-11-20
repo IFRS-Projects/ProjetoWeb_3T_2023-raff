@@ -1,3 +1,4 @@
+import { movieType } from '@/lib/types/movie';
 import { StaticImageData } from 'next/image';
 import { SetStateAction } from 'react';
 
@@ -9,8 +10,8 @@ type TracksData = {
 
 export type CardData = {
   id: number;
-  name: string;
-  src: StaticImageData;
+  title: string;
+  image_url: StaticImageData;
   age: number;
   bio: string;
   genre: string[];
@@ -18,13 +19,13 @@ export type CardData = {
 };
 
 export type CardProps = {
-  data: CardData;
+  data: movieType;
   active: boolean;
-  removeCard: (id: number, action: 'right' | 'left') => void;
+  removeCard: (id: string, action: 'right' | 'left') => void;
 };
 
 export type SwipeButtonProps = {
   exit: (value: SetStateAction<number>) => void;
-  removeCard: (id: number, action: 'right' | 'left') => void;
-  id: number;
+  removeCard: (id: string, action: 'right' | 'left') => void;
+  id: string;
 };

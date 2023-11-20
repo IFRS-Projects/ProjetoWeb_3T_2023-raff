@@ -14,13 +14,17 @@ import { useAuthStore } from "../../../hooks/useAuthStore";
 import { AuthStore } from "@/stores/auth";
 import { useRouter } from "next/navigation";
 
+
 export default function Home() {
   const [page, setPage] = useState<number>(1)
   const { push } = useRouter()
   const { actions: {
     logout
-  }} = AuthStore()
-  const user = useAuthStore(AuthStore,(store) => store.state.user)
+  } } = AuthStore()
+  const user = useAuthStore(AuthStore, (store) => store.state.user)
+
+
+
   return (
     <div className='min-h-screen flex flex-col bg-background'>
       <div className="px-6 py-3 flex items-center justify-between border-b bg-figma-gray">
@@ -38,19 +42,19 @@ export default function Home() {
                 <User size={18} />
               </MenubarTrigger>
               <MenubarContent>
-              { user?.sub !== '' ? 
+                {user?.sub !== '' ?
                   <MenubarItem className="rounded-xl" onClick={() => {
                     logout()
                     push('/API/auth/user/logout')
-                }}>
-                  Logout
-                </MenubarItem>
-                :
+                  }}>
+                    Logout
+                  </MenubarItem>
+                  :
                   <MenubarItem className="rounded-xl" onClick={() => {
                     push('/user/login')
                   }}>login</MenubarItem>
-              }
-                </MenubarContent>
+                }
+              </MenubarContent>
             </MenubarMenu>
           </Menubar>
         </div>

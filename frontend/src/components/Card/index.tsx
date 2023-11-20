@@ -38,7 +38,7 @@ const Card = ({ data, active, removeCard }: CardProps) => {
         <motion.div
           drag="x"
           dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-          className="card absolute z-30 flex h-[438px] w-[289px] items-center justify-center self-center text-3xl font-bold"
+          className="card absolute z-30 flex h-[500px] w-[600px] items-center justify-center self-center text-3xl font-bold"
           onDragEnd={dragEnd}
           initial={{ scale: 0.95, opacity: 0.5 }}
           animate={{
@@ -50,10 +50,10 @@ const Card = ({ data, active, removeCard }: CardProps) => {
           whileDrag={{ cursor: 'grabbing' }}
           exit={{ x: exitX }}
         >
-          <div className="scrollCards absolute m-auto h-[calc(100%-20px)] w-[calc(100%-20px)] overflow-y-scroll rounded-[20px] border-2 border-[#9F9F9F80]">
-            <div className="relative h-[269px] w-full overflow-hidden rounded-b-xl">
+          <div className="scrollCards absolute m-auto h-[calc(100%-20px)] w-[calc(100%-20px)] overflow-y-hidden rounded-[20px] border-2 border-[#9F9F9F80]">
+            <div className="relative h-[300px] w-full overflow-hidden rounded-b-xl">
               <Image
-                src={data.src}
+                src={data.image_url}
                 fill
                 alt=""
                 style={{
@@ -62,21 +62,13 @@ const Card = ({ data, active, removeCard }: CardProps) => {
               />
             </div>
             <div className="mt-6 flex items-center justify-between px-4 font-sans text-2xl font-medium text-textGrey">
-              <p>{data.name}</p>
-              <p>{data.age}</p>
+              <p>{data.title}</p>
             </div>
             <p className="mt-3 px-4 font-sans text-lg font-medium text-textGrey">
-              {data.bio}
-            </p>
-            <div className="mt-3 flex gap-1 px-4 text-base font-normal">
-              {data.genre.map((item: any, idx: number) => (
-                <p key={idx} className="rounded-[7px] bg-[#00423E] px-4 py-2">
-                  {item}
-                </p>
-              ))}
-            </div>
-            <p className="mt-5 px-4 text-xl font-medium">Top Tracks</p>
-            <div className="mt-3 mb-4 grid grid-cols-2 gap-4 px-4">
+              {data.description}</p>
+
+            <p className="mt-5 px-4 text-xl font-medium">{data.love_amount}</p>
+            {/* <div className="mt-3 mb-4 grid grid-cols-2 gap-4 px-4">
               {data.tracks.map((track, id) => {
                 return (
                   <div key={id}>
@@ -96,7 +88,7 @@ const Card = ({ data, active, removeCard }: CardProps) => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </motion.div>
       ) : null}

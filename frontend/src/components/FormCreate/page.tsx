@@ -35,7 +35,6 @@ export default function Create() {
         "Content-Type": "multipart/form-data",
       },
     };
-    const {push} = useRouter()
 
     const formData = new FormData()
     formData.append('file', data.file)
@@ -43,7 +42,7 @@ export default function Create() {
     formData.append('title', JSON.stringify(data.title))
     formData.append('description', JSON.stringify(data.description))
     const res = await axios.post("http://localhost:4000/movies", formData, config);
-    
+
   }
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl flex flex-col items-center">
