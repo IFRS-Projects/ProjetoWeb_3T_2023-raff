@@ -13,13 +13,13 @@ import Image from 'next/image'
 import { useState } from 'react'
 import List from '@/components/List/page'
 import Create from '@/components/FormCreate/page'
-import Edit from '@/components/FormEdit/page'
 import Rank from '@/components/Rank/page'
 import { User } from '@phosphor-icons/react'
 import { useAuthStore } from '../../../hooks/useAuthStore'
 import { AuthStore } from '@/stores/auth'
 import { useRouter } from 'next/navigation'
 import { MenubarLabel, MenubarSeparator } from '@radix-ui/react-menubar'
+import HandleMovies from '@/components/HandleMovies'
 
 export default function Home() {
   const [page, setPage] = useState<number>(1)
@@ -101,7 +101,7 @@ export default function Home() {
               page === 3 ? 'bg-figma-purple' : ''
             }`}
           >
-            Editar
+            Listagem
           </a>
           <a
             onClick={() => setPage(4)}
@@ -109,13 +109,13 @@ export default function Home() {
               page === 4 ? 'bg-figma-purple' : ''
             }`}
           >
-            Rank
+            Ranks
           </a>
         </div>
-        {page === 1 ? <List /> : ''}
-        {page === 2 ? <Create /> : ''}
-        {page === 3 ? <Edit /> : ''}
-        {page === 4 ? <Rank /> : ''}
+        {page === 1 && <List />}
+        {page === 2 && <Create />}
+        {page === 3 && <HandleMovies />}
+        {page === 4 && <Rank />}
       </main>
     </div>
   )

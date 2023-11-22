@@ -16,6 +16,8 @@ export class PrismaUsersRepository implements UsersService {
 
   async create(createUserDto: CreateUserDto) {
     createUserDto.password = await enCrypt(createUserDto.password);
+    console.log(createUserDto.email);
+
     if (!createUserDto.email.endsWith('@aluno.feliz.ifrs.edu.br')) {
       throw new ForbiddenException('Email is not accepted');
     }

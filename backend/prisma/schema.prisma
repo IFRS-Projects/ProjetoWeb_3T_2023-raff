@@ -15,7 +15,7 @@ model users {
   name        String
   email       String       @unique
   password    String
-  permissions Permission[]
+  permissions Permission[] @default([MEMBER])
   user_likes  user_likes[]
 
   created_at DateTime @default(now())

@@ -6,7 +6,7 @@ import api from '@/lib/api'
 import { movieType } from '@/lib/types/movie'
 import { toast } from 'sonner'
 
-export default function FormEdit() {
+export default function HandleMovies() {
   const [movies, setMovies] = useState<movieType[]>([])
   const getAllMovies = async () => {
     const r = await api.movies.list()

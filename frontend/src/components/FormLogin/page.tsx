@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
 import { Button } from '../ui/button'
 import { Input } from '@/components/Input/Input'
@@ -6,7 +7,6 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { AuthStore } from '@/stores/auth'
-import { useAuthStore } from '../../../hooks/useAuthStore'
 import { toast } from 'sonner'
 
 const schema = z.object({
@@ -24,7 +24,6 @@ type formProps = z.infer<typeof schema>
 export default function FormLogin() {
   const { push } = useRouter()
 
-  const user = useAuthStore(AuthStore, (state) => state.state.user)
   const {
     actions: { login },
   } = AuthStore()
@@ -34,7 +33,7 @@ export default function FormLogin() {
     register,
     formState: { errors },
   } = useForm<formProps>({
-    mode: 'all',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     resolver: zodResolver(schema),
   })
@@ -42,6 +41,8 @@ export default function FormLogin() {
   const handleForm = async (data: formProps) => {
     const execLogin = async () => {
       const token = await login(data)
+      // @ts-ignore
+
       if (token !== '') {
         return token
       } else {

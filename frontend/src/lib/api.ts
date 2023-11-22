@@ -167,7 +167,7 @@ export default {
   },
   movies: {
     create: async (movieData: FormData): Promise<resultType<movieType>> => {
-      return await basicFetch('POST', `movies`, { ...movieData }, {})
+      return await basicFetch('POST', `movies`, movieData, {})
     },
     findAll: async (): Promise<resultType<movieType[]>> => {
       return await basicFetch('GET', 'movies/', {}, {})
