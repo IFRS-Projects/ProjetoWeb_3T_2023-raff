@@ -19,17 +19,16 @@ export default function SwButtons({
       <button
         onClick={async () => {
           handleSwipe('left')
-          await api.movies.update(id,{love_amount:1})
+          await api.movies.update(id, { love_amount: 1 })
         }}
         className="px-3 py-2 bg-teal-800 text-textGrey font-semibold rounded-md"
       >
         Assito
       </button>
       <button
-        onClick={async () =>
-        {
+        onClick={async () => {
           handleSwipe('right')
-          await api.movies.update(id,{love_amount:-1})
+          await api.movies.update(id, { love_amount: -1 })
         }
         }
         className="px-3 py-2 bg-teal-800 text-textGrey font-semibold rounded-md"

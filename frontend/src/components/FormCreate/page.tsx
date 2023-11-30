@@ -46,6 +46,12 @@ export default function Create() {
     console.log(data.file)
 
     delete data.file
+<<<<<<< HEAD
+    formData.append('title', JSON.stringify(data.title))
+    formData.append('description', JSON.stringify(data.description))
+    const res = await axios.post("http://localhost:4000/movies", formData, config);
+
+=======
 
     formData.append('title', data.title.trim())
     formData.append('description', data.description.trim())
@@ -63,6 +69,7 @@ export default function Create() {
     } else {
       throw new Error('Filme não criado')
     }
+>>>>>>> RaffDv/issue15
   }
   const handleForm = (data: formProps) => {
     data.file = data.file[0]

@@ -16,9 +16,9 @@ export default function Rank() {
     // @ts-ignore
     setMovies(allMovies.data)
   }
-  useEffect(() => { 
+  useEffect(() => {
     getMovies()
-  },[])
+  }, [])
 
   return (
     <div className="min-w-min w-3/4 bg-figma-gray p-6 rounded-xl flex flex-col items-center">
@@ -41,20 +41,20 @@ export default function Rank() {
         </div>
       </nav>
       {
-        movies.map((movie,idx) => {
+        movies.map((movie, idx) => {
           return (
             <div className="w-24 bg-figma-gray p-6 rounded-xl flex flex-col items-center" key={movie.id}>
-        <div className="bg-figma-gray2 w-64 h-16 rounded-xl gap-5 p-2 flex items-center shadow-sm">
-          <span className="text-base ml-2">{idx + 1}° </span>
-          <Separator orientation="vertical" className="h-7 bg-figma-white"></Separator>
-                <span>{movie.title }</span>
-          <Separator orientation="vertical" className="h-7 bg-figma-white"></Separator>
-          <span>
-            Votos:
-                  <span className="font-bold"> { movie.love_amount}</span>
-          </span>
-        </div>
-      </div>
+              <div className="bg-figma-gray2 w-64 h-16 rounded-xl gap-5 p-2 flex items-center shadow-sm">
+                <span className="text-base ml-2">{idx + 1}° </span>
+                <Separator orientation="vertical" className="h-7 bg-figma-white"></Separator>
+                <span>{movie.title}</span>
+                <Separator orientation="vertical" className="h-7 bg-figma-white"></Separator>
+                <span>
+                  Votos:
+                  <span className="font-bold"> {movie.love_amount}</span>
+                </span>
+              </div>
+            </div>
           )
         })
       }

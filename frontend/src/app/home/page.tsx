@@ -24,11 +24,21 @@ import HandleMovies from '@/components/HandleMovies'
 export default function Home() {
   const [page, setPage] = useState<number>(1)
   const { push } = useRouter()
+<<<<<<< HEAD
+  const { actions: {
+    logout
+  } } = AuthStore()
+  const user = useAuthStore(AuthStore, (store) => store.state.user)
+
+
+
+=======
   const {
     actions: { logout },
   } = AuthStore()
   const user = useAuthStore(AuthStore, (store) => store.state.user)
 
+>>>>>>> RaffDv/issue15
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <div className="px-6 py-3 flex items-center justify-between border-b bg-figma-gray">
@@ -45,6 +55,20 @@ export default function Home() {
                 <User size={18} />
               </MenubarTrigger>
               <MenubarContent>
+<<<<<<< HEAD
+                {user?.sub !== '' ?
+                  <MenubarItem className="rounded-xl" onClick={() => {
+                    logout()
+                    push('/API/auth/user/logout')
+                  }}>
+                    Logout
+                  </MenubarItem>
+                  :
+                  <MenubarItem className="rounded-xl" onClick={() => {
+                    push('/user/login')
+                  }}>login</MenubarItem>
+                }
+=======
                 {user?.sub !== '' ? (
                   <>
                     <MenubarLabel className="rounded-xl w-full justify-center flex">
@@ -71,6 +95,7 @@ export default function Home() {
                     login
                   </MenubarItem>
                 )}
+>>>>>>> RaffDv/issue15
               </MenubarContent>
             </MenubarMenu>
           </Menubar>

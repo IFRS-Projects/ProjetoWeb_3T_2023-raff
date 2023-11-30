@@ -51,7 +51,13 @@ export default function List() {
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl">
       <div className="relative flex h-screen w-full items-center justify-center overflow-clip bg-bgBlack text-textGrey">
+<<<<<<< HEAD
+        <div className="absolute bottom-0 h-[50%] w-screen scale-125 sm:h-[80%] sm:scale-110 md:scale-100">
+
+        </div>
+=======
         <div className="absolute bottom-0 h-[50%] w-screen scale-125 sm:h-[80%] sm:scale-110 md:scale-100"></div>
+>>>>>>> RaffDv/issue15
         <AnimatePresence>
           {movies.length ? (
             movies.map((movie, idx) => (
@@ -64,11 +70,21 @@ export default function List() {
             ))
           ) : (
             <h2 className="absolute z-10 text-center text-2xl font-bold text-textGrey ">
+<<<<<<< HEAD
+
+=======
+>>>>>>> RaffDv/issue15
               Volte amanhã para mais!
             </h2>
           )}
         </AnimatePresence>
+<<<<<<< HEAD
+
       </div>
+
+=======
+      </div>
+>>>>>>> RaffDv/issue15
     </div>
   )
 }
