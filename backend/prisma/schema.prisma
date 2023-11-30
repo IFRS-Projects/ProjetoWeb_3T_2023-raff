@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -49,3 +50,57 @@ model user_likes {
 enum Permission {
   LIST_USERS
 }
+=======
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  permissions Permission[] @default([MEMBER])
+  user_likes  user_likes[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model movies {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  love_amount Int          @default(0)
+  image_url   String
+  user_likes  user_likes[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model user_likes {
+  id       String @id @default(uuid())
+  usersId  String
+  moviesId String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  movie movies @relation(fields: [moviesId], references: [id], onDelete: Cascade)
+  user  users  @relation(fields: [usersId], references: [id], onDelete: Cascade)
+}
+
+enum Permission {
+  MEMBER
+  MASTER
+}
+>>>>>>> RaffDv/issue15
