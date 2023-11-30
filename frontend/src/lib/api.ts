@@ -188,6 +188,14 @@ export default {
     rank: async (): Promise<resultType<movieType[]>> => {
       return await basicFetch('GET', `movies/rank`, {}, {})
     },
+
+    highLove: async (): Promise<resultType<movieType[]>> => {
+      return await basicFetch('GET', 'movies/rank/high', {}, {})
+    },
+
+    lowLove: async (): Promise<resultType<movieType[]>> => {
+      return await basicFetch('GET', 'movies/rank/low', {}, {})
+    },
     list: async (): Promise<resultType<movieType[]>> => {
       return await basicFetch('GET', `movies/list`, {}, {})
     },

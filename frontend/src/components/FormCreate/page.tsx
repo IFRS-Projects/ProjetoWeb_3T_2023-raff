@@ -113,7 +113,7 @@ export default function Create() {
         ) : (
           <>
             <Label
-              className="gap-x-2 flex items-center justify-center border-2 border-dashed border-figma-white p-8 rounded w-96 h-40 leading-relaxed "
+              className="gap-x-2 flex cursor-pointer items-center justify-center border-2 border-dashed border-figma-white p-8 rounded w-96 h-40 leading-relaxed "
               htmlFor="imageMovies"
             >
               <PImage size={24} weight="thin" />

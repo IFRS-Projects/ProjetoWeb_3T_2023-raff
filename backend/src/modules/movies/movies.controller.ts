@@ -49,6 +49,18 @@ export class MoviesController {
   async findRank() {
     return await this.moviesService.findRank();
   }
+  
+  @Get('/rank/high')
+  async findHigh() {
+    return await this.moviesService.highLoved()
+  }
+
+  @Get('/rank/low')
+  async findLow() {
+    return await this.moviesService.lowLoved()
+  }
+
+    
   @Get('/list')
   async list() {
     return await this.moviesService.list();

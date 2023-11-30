@@ -1,63 +1,136 @@
 'use client'
-import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
-import { ArrowFatDown } from '@phosphor-icons/react'
-import api from "@/lib/api";
-import { movieType } from "@/lib/types/movie";
+import { Separator } from '../ui/separator'
+import { useEffect, useState } from 'react'
+import api from '@/lib/api'
+import { movieType } from '@/lib/types/movie'
+import { toast } from 'sonner'
+import { ArrowFatLinesDown, ArrowFatLinesUp } from '@phosphor-icons/react'
 
 export default function Rank() {
-  const [order, setOrder] = useState<number>(1)
+  const [active, setActive] = useState<number>(1)
+  const [order, setOrder] = useState<string>('asc')
   const [movies, setMovies] = useState<movieType[]>([])
 
   const getMovies = async () => {
     const allMovies = await api.movies.rank()
-    console.log(allMovies.data);
-    // @ts-ignore
+    console.log(allMovies.data)
     setMovies(allMovies.data)
   }
-  useEffect(() => { 
+  useEffect(() => {
     getMovies()
-  },[])
+  }, [])
 
   return (
     <div className="min-w-min w-3/4 bg-figma-gray p-6 rounded-xl flex flex-col items-center">
       <nav className="w-full flex ">
         <div className="w-1/2 space-x-10">
-          <a onClick={() => {
-            setOrder(1)
-            setMovies(movies.reverse())
-          }}
-            className={`${order === 1 ? 'bg-figma-purple' : ''} cursor-pointer rounded-full p-1 text-sm`}>
-            Mais vistos
-          </a>
-          <a onClick={() => {
-            setOrder(2)
-            setMovies(movies.reverse())
-          }}
-            className={`${order === 2 ? 'bg-figma-purple' : ''} cursor-pointer rounded-full p-1 text-sm`}>
-            Menos vistos
-          </a>
+          <button
+            onClick={() => {
+              setActive(1)
+              getMovies()
+              setOrder('asc')
+            }}
+            className={`${
+              active === 1 ? 'bg-figma-purple' : ''
+            } cursor-pointer rounded-full p-1 text-sm`}
+          >
+            Geral
+          </button>
+
+          <button
+            onClick={async () => {
+              setActive(3)
+              const res = await api.movies.highLove()
+              if (res.success) {
+                setMovies(res.data)
+                setOrder('asc')
+              } else {
+                toast.error(
+                  'Ocorreu um erro ao buscar os filmes! Tente novamente',
+                )
+              }
+            }}
+            className={`${
+              active === 3 ? 'bg-figma-purple' : ''
+            } cursor-pointer rounded-full p-1 text-sm`}
+          >
+            Mais amados
+          </button>
+          <button
+            onClick={async () => {
+              setActive(4)
+              const res = await api.movies.lowLove()
+              if (res.success) {
+                setMovies(res.data)
+                setOrder('asc')
+              } else {
+                toast.error(
+                  'Ocorreu um erro ao buscar os filmes! Tente novamente',
+                )
+              }
+            }}
+            className={`${
+              active === 4 ? 'bg-figma-purple' : ''
+            } cursor-pointer rounded-full p-1 text-sm`}
+          >
+            Menos amados
+          </button>
         </div>
       </nav>
-      {
-        movies.map((movie,idx) => {
-          return (
-            <div className="w-24 bg-figma-gray p-6 rounded-xl flex flex-col items-center" key={movie.id}>
-        <div className="bg-figma-gray2 w-64 h-16 rounded-xl gap-5 p-2 flex items-center shadow-sm">
-          <span className="text-base ml-2">{idx + 1}° </span>
-          <Separator orientation="vertical" className="h-7 bg-figma-white"></Separator>
-                <span>{movie.title }</span>
-          <Separator orientation="vertical" className="h-7 bg-figma-white"></Separator>
-          <span>
-            Votos:
-                  <span className="font-bold"> { movie.love_amount}</span>
-          </span>
-        </div>
+      <div className="w-full h-fit py-2 flex justify-center space-x-2">
+        <ArrowFatLinesUp
+          size={28}
+          color="#fff"
+          weight={order === 'asc' ? 'fill' : 'thin'}
+          onClick={() => {
+            if (order !== 'asc') {
+              setMovies(movies.reverse())
+              setOrder('asc')
+            }
+          }}
+        />
+
+        <ArrowFatLinesDown
+          size={28}
+          color="#fff"
+          weight={order === 'desc' ? 'fill' : 'thin'}
+          onClick={() => {
+            if (order !== 'desc') {
+              setMovies(movies.reverse())
+              setOrder('desc')
+            }
+          }}
+        />
       </div>
+      {movies.length > 0 ? (
+        movies.map((movie, idx) => {
+          return (
+            <div
+              className="w-24 bg-figma-gray p-6 rounded-xl flex flex-col items-center"
+              key={movie.id}
+            >
+              <div className="bg-figma-gray2 w-64 h-16 rounded-xl gap-5 p-2 flex items-center shadow-sm">
+                <span className="text-base ml-2">{idx + 1}° </span>
+                <Separator
+                  orientation="vertical"
+                  className="h-7 bg-figma-white"
+                ></Separator>
+                <span>{movie.title}</span>
+                <Separator
+                  orientation="vertical"
+                  className="h-7 bg-figma-white"
+                ></Separator>
+                <span>
+                  Votos:
+                  <span className="font-bold"> {movie.love_amount}</span>
+                </span>
+              </div>
+            </div>
           )
         })
-      }
+      ) : (
+        <p>Não há filmes cadastrados!</p>
+      )}
     </div>
   )
 }

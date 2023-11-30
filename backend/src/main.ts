@@ -23,9 +23,6 @@ async function bootstrap() {
       P2025: HttpStatus.NOT_FOUND,
     }),
   );
-  // app.useGlobalFilters(new PrismaUniqueKeyDupExceptionFilter(httpAdapter));
-  // app.useGlobalFilters(new PrismaNotFoundExceptionFilter());
-
   app.enableCors({
     credentials: true,
     origin: 'http://localhost:3000',

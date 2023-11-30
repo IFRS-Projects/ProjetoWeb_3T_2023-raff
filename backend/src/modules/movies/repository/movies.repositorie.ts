@@ -10,4 +10,6 @@ export abstract class MoviesRepository {
   abstract update(id: string, updateMovieDto: UpdateMovieDto);
   abstract remove(id: string);
   abstract list();
+  abstract highLoved();
+  abstract lowLoved();
 }
