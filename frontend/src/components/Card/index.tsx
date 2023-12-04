@@ -1,35 +1,35 @@
-import { CardProps } from '@/types/cards';
+import { CardProps } from '@/types/cards'
 import {
   easeIn,
   motion,
   PanInfo,
   useMotionValue,
   useTransform,
-} from 'framer-motion';
-import Image from 'next/image';
-import { useState } from 'react';
-import SwipeButton from '@/components/swipe/buttons';
+} from 'framer-motion'
+import Image from 'next/image'
+import { useState } from 'react'
+import SwipeButton from '@/components/swipe/buttons'
 
 const Card = ({ data, active, removeCard }: CardProps) => {
-  const [exitX, setExitX] = useState(0);
+  const [exitX, setExitX] = useState(0)
 
-  const x = useMotionValue(0);
-  const input = [-200, 0, 200];
-  const rotate = useTransform(x, [-200, 200], [-25, 25]);
-  const opacity = useTransform(x, [-200, -125, 0, 125, 200], [0, 1, 1, 1, 0]);
+  const x = useMotionValue(0)
+  const input = [-200, 0, 200]
+  const rotate = useTransform(x, [-200, 200], [-25, 25])
+  const opacity = useTransform(x, [-200, -125, 0, 125, 200], [0, 1, 1, 1, 0])
 
   const dragEnd = (
     e: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
+    info: PanInfo,
   ) => {
     if (info.offset.x > 100) {
-      setExitX(200);
-      removeCard(data.id, 'right');
+      setExitX(200)
+      removeCard(data.id, 'right')
     } else if (info.offset.x < -100) {
-      setExitX(-200);
-      removeCard(data.id, 'left');
+      setExitX(-200)
+      removeCard(data.id, 'left')
     }
-  };
+  }
 
   return (
     <>
@@ -65,7 +65,8 @@ const Card = ({ data, active, removeCard }: CardProps) => {
               <p>{data.title}</p>
             </div>
             <p className="mt-3 px-4 font-sans text-lg font-medium text-textGrey">
-              {data.description}</p>
+              {data.description}
+            </p>
 
             <p className="mt-5 px-4 text-xl font-medium">{data.love_amount}</p>
             {/* <div className="mt-3 mb-4 grid grid-cols-2 gap-4 px-4">
@@ -93,7 +94,7 @@ const Card = ({ data, active, removeCard }: CardProps) => {
         </motion.div>
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card
