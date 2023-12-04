@@ -13,21 +13,43 @@ import Image from 'next/image'
 import { useState } from 'react'
 import List from '@/components/List/page'
 import Create from '@/components/FormCreate/page'
-import Edit from '@/components/FormEdit/page'
 import Rank from '@/components/Rank/page'
 import { User } from '@phosphor-icons/react'
 import { useAuthStore } from '../../../hooks/useAuthStore'
 import { AuthStore } from '@/stores/auth'
 import { useRouter } from 'next/navigation'
+<<<<<<< HEAD
+=======
+import { MenubarLabel, MenubarSeparator } from '@radix-ui/react-menubar'
+import HandleMovies from '@/components/HandleMovies'
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
 
 export default function Home() {
   const [page, setPage] = useState<number>(1)
   const { push } = useRouter()
+<<<<<<< HEAD
   const {
     actions: { logout },
   } = AuthStore()
   const user = useAuthStore(AuthStore, (store) => store.state.user)
 
+=======
+<<<<<<< HEAD
+  const { actions: {
+    logout
+  } } = AuthStore()
+  const user = useAuthStore(AuthStore, (store) => store.state.user)
+
+
+
+=======
+  const {
+    actions: { logout },
+  } = AuthStore()
+  const user = useAuthStore(AuthStore, (store) => store.state.user)
+
+>>>>>>> RaffDv/issue15
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <div className="px-6 py-3 flex items-center justify-between border-b bg-figma-gray">
@@ -38,12 +60,17 @@ export default function Home() {
         <div className="flex items-center gap-3">
           <Separator orientation="vertical" className="h-6"></Separator>
 
+<<<<<<< HEAD
           <Menubar className="bg-figma-gray">
+=======
+          <Menubar className="rounded-md">
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
             <MenubarMenu>
               <MenubarTrigger className="rounded-xl">
                 <User size={18} />
               </MenubarTrigger>
               <MenubarContent>
+<<<<<<< HEAD
                 {user?.sub !== '' ? (
                   <MenubarItem
                     className="rounded-xl"
@@ -54,6 +81,38 @@ export default function Home() {
                   >
                     Logout
                   </MenubarItem>
+=======
+<<<<<<< HEAD
+                {user?.sub !== '' ?
+                  <MenubarItem className="rounded-xl" onClick={() => {
+                    logout()
+                    push('/API/auth/user/logout')
+                  }}>
+                    Logout
+                  </MenubarItem>
+                  :
+                  <MenubarItem className="rounded-xl" onClick={() => {
+                    push('/user/login')
+                  }}>login</MenubarItem>
+                }
+=======
+                {user?.sub !== '' ? (
+                  <>
+                    <MenubarLabel className="rounded-xl w-full justify-center flex">
+                      {user?.username}
+                    </MenubarLabel>
+                    <MenubarSeparator />
+                    <MenubarItem
+                      className="rounded-xl"
+                      onClick={() => {
+                        logout()
+                        push('/API/auth/user/logout')
+                      }}
+                    >
+                      Logout
+                    </MenubarItem>
+                  </>
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
                 ) : (
                   <MenubarItem
                     className="rounded-xl"
@@ -64,6 +123,10 @@ export default function Home() {
                     login
                   </MenubarItem>
                 )}
+<<<<<<< HEAD
+=======
+>>>>>>> RaffDv/issue15
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
@@ -71,7 +134,11 @@ export default function Home() {
       </div>
 
       <main className="flex-1 flex-col p-6 flex gap-6 justify-start items-center">
+<<<<<<< HEAD
         <div className=" w-3/4 h-12 bg-figma-gray flex justify-around items-center rounded-full">
+=======
+        <div className="w-3/4 h-12 bg-figma-gray flex justify-around items-center rounded-full">
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
           <a
             onClick={() => setPage(1)}
             className={`w-20 h-8 rounded-full flex justify-center items-center font-bold cursor-pointer ${
@@ -94,7 +161,11 @@ export default function Home() {
               page === 3 ? 'bg-figma-purple' : ''
             }`}
           >
+<<<<<<< HEAD
             Editar
+=======
+            Listagem
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
           </a>
           <a
             onClick={() => setPage(4)}
@@ -102,13 +173,17 @@ export default function Home() {
               page === 4 ? 'bg-figma-purple' : ''
             }`}
           >
+<<<<<<< HEAD
             Rank
+=======
+            Ranks
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
           </a>
         </div>
-        {page === 1 ? <List /> : ''}
-        {page === 2 ? <Create /> : ''}
-        {page === 3 ? <Edit /> : ''}
-        {page === 4 ? <Rank /> : ''}
+        {page === 1 && <List />}
+        {page === 2 && <Create />}
+        {page === 3 && <HandleMovies />}
+        {page === 4 && <Rank />}
       </main>
     </div>
   )

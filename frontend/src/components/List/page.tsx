@@ -51,7 +51,17 @@ export default function List() {
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl">
       <div className="relative flex h-screen w-full items-center justify-center overflow-clip bg-bgBlack text-textGrey">
+<<<<<<< HEAD
         <div className="absolute bottom-0 h-[50%] w-screen scale-125 sm:h-[80%] sm:scale-110 md:scale-100"></div>
+=======
+<<<<<<< HEAD
+        <div className="absolute bottom-0 h-[50%] w-screen scale-125 sm:h-[80%] sm:scale-110 md:scale-100">
+
+        </div>
+=======
+        <div className="absolute bottom-0 h-[50%] w-screen scale-125 sm:h-[80%] sm:scale-110 md:scale-100"></div>
+>>>>>>> RaffDv/issue15
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
         <AnimatePresence>
           {movies.length ? (
             movies.map((movie, idx) => (
@@ -64,11 +74,28 @@ export default function List() {
             ))
           ) : (
             <h2 className="absolute z-10 text-center text-2xl font-bold text-textGrey ">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> RaffDv/issue15
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
               Volte amanhã para mais!
             </h2>
           )}
         </AnimatePresence>
+<<<<<<< HEAD
       </div>
+=======
+<<<<<<< HEAD
+
+      </div>
+
+=======
+      </div>
+>>>>>>> RaffDv/issue15
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
     </div>
   )
 }

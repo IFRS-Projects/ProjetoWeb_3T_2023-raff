@@ -5,9 +5,16 @@ import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+<<<<<<< HEAD
 import api from '@/lib/api'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+=======
+import axios from 'axios'
+import { toast } from 'sonner'
+import { Image as PImage, TrashSimple } from '@phosphor-icons/react'
+import Image from 'next/image'
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
 
 const schema = z.object({
   title: z.string({
@@ -24,11 +31,18 @@ export default function Create() {
   const {
     handleSubmit,
     register,
+<<<<<<< HEAD
+=======
+    reset,
+    watch,
+    setValue,
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
     formState: { errors },
   } = useForm<formProps>({
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: zodResolver(schema),
+<<<<<<< HEAD
   })
 
   const handleForm = async (data: formProps) => {
@@ -40,11 +54,25 @@ export default function Create() {
       },
     }
 
+=======
+    defaultValues: {
+      description: '',
+      file: [],
+      title: '',
+    },
+  })
+
+  const handleCreateMovie = async (data: formProps) => {
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
     const formData = new FormData()
     formData.append('file', data.file)
+    console.log(data.file)
+
     delete data.file
+<<<<<<< HEAD
     formData.append('title', JSON.stringify(data.title))
     formData.append('description', JSON.stringify(data.description))
+<<<<<<< HEAD
     const res = await axios.post(
       'http://localhost:4000/movies',
       formData,
@@ -53,10 +81,57 @@ export default function Create() {
   }
   return (
     <div className="w-3/4 bg-figma-gray p-6 rounded-xl flex flex-col items-center">
+=======
+    const res = await axios.post("http://localhost:4000/movies", formData, config);
+
+=======
+
+    formData.append('title', data.title.trim())
+    formData.append('description', data.description.trim())
+
+    const res = await axios({
+      method: 'post',
+      url: 'http://localhost:4000/movies',
+      data: formData,
+    })
+
+    console.log(res)
+
+    if (res.status === 201) {
+      return true
+    } else {
+      throw new Error('Filme não criado')
+    }
+>>>>>>> RaffDv/issue15
+  }
+  const handleForm = (data: formProps) => {
+    data.file = data.file[0]
+
+    toast.promise(handleCreateMovie(data), {
+      loading: 'Loading...',
+      duration: 2000,
+
+      success: () => {
+        return `Filme cadastrado!`
+      },
+      error: 'Não foi possivel cadastrar o filme',
+    })
+
+    reset()
+  }
+
+  const hasNewImage = watch('file').length > 0
+  const image = watch('file')[0]
+  console.log(hasNewImage)
+
+  return (
+    <div className="w-3/4 bg-figma-gray p-6 rounded-xl flex flex-col items-center ">
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
       <form
         className="w-full p-6 flex flex-col items-center"
         onSubmit={handleSubmit(handleForm)}
       >
+<<<<<<< HEAD
         <Label className="text-base" htmlFor="imageMovies">
           Imagem
         </Label>
@@ -68,6 +143,47 @@ export default function Create() {
           type="file"
           {...register('file')}
         />
+=======
+        {hasNewImage ? (
+          <div className="relative p-6 rounded-[8px] bg-figma-gray2">
+            <p>Capa do filme</p>
+            <TrashSimple
+              size={24}
+              color="#f50000"
+              weight="thin"
+              className="absolute top-3 right-0 cursor-pointer"
+              onClick={() => {
+                setValue('file', [])
+              }}
+            />
+            <Image
+              alt="new image preview"
+              src={URL.createObjectURL(image)}
+              width={384}
+              height={160}
+              className="z-10 bg-cover"
+            />
+          </div>
+        ) : (
+          <>
+            <Label
+              className="gap-x-2 flex items-center justify-center border-2 border-dashed border-figma-white p-8 rounded w-96 h-40 leading-relaxed "
+              htmlFor="imageMovies"
+            >
+              <PImage size={24} weight="thin" />
+              <p className="font-light">Capa do filme</p>
+            </Label>
+
+            <Input
+              required
+              className="hidden"
+              id="imageMovies"
+              type="file"
+              {...register('file')}
+            />
+          </>
+        )}
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
 
         <Label className="text-base" htmlFor="name">
           Nome
@@ -76,7 +192,11 @@ export default function Create() {
         <Input
           required
           id="name"
+<<<<<<< HEAD
           className="mb-6 mt-2 max-w-sm"
+=======
+          className="mb-6 mt-2 max-w-sm rounded"
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
           type="text"
           {...register('title')}
         />
@@ -88,7 +208,11 @@ export default function Create() {
         <Input
           required
           id="description"
+<<<<<<< HEAD
           className="mb-6 mt-2 max-w-sm"
+=======
+          className="mb-6 mt-2 max-w-sm rounded"
+>>>>>>> 484673cb2d0dc14171a1b9167817a2f48eba9ed9
           type="text"
           {...register('description')}
         />

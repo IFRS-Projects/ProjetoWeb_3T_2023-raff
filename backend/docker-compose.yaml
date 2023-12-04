@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports: 
+      - 4000:4000
+    volumes:
+      - .:/home/node/app
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  postgresdb:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: keymaster
+

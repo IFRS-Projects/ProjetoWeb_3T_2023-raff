@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { IsDefined, IsString } from 'class-validator';
 
 export class CreateMovieDto {
@@ -9,3 +10,9 @@ export class CreateMovieDto {
   @IsString()
   public description: string;
 }
+=======
+export class CreateMovieDto {
+  public title: string;
+  public description: string;
+}
+>>>>>>> RaffDv/issue15
