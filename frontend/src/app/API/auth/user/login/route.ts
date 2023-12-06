@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 export async function GET(request: Request) {
   const token = new URL(request.url).searchParams.get('token')
@@ -9,7 +8,7 @@ export async function GET(request: Request) {
 
   return NextResponse.redirect(new URL(redirectURL as string, request.url), {
     headers: {
-      'Set-Cookie': `token=${token}; HttpOnly ;Max-Age=432000;Path=/`,
+      'Set-Cookie': `token=${token}; Max-Age=432000;Path=/`,
     },
   })
 }
