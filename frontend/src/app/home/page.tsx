@@ -54,6 +54,15 @@ export default function Home() {
                     <MenubarItem
                       className="rounded-xl"
                       onClick={() => {
+                        push('/user/account')
+                      }}
+                    >
+                      Perfil
+                    </MenubarItem>
+                    <MenubarSeparator />
+                    <MenubarItem
+                      className="rounded-xl"
+                      onClick={() => {
                         logout()
                         push('/API/auth/user/logout')
                       }}

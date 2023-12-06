@@ -5,7 +5,7 @@ import {
   userLogin,
   userType,
 } from './types/user'
-import { movieType, updateMovieType } from './types/movie'
+import { createMovieType, movieType, updateMovieType } from './types/movie'
 
 const api = axios.create({
   withCredentials: true,
