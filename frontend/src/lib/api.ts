@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import {
   createUserType,
@@ -5,7 +6,7 @@ import {
   userLogin,
   userType,
 } from './types/user'
-import { createMovieType, movieType, updateMovieType } from './types/movie'
+import { movieType, updateMovieType } from './types/movie'
 
 const api = axios.create({
   withCredentials: true,
@@ -58,7 +59,7 @@ const basicFetch = async (
       r =
         method === 'POST'
           ? await api.post(`/${endpoint}`, buildParamString(params), {
-              validateStatus: function (status) {
+              validateStatus: function () {
                 return true
               },
               headers,
@@ -71,7 +72,7 @@ const basicFetch = async (
               )
             : method === 'PATCH'
               ? await api.patch(`/${endpoint}`, buildParamString(params), {
-                  validateStatus: function (status) {
+                  validateStatus: function () {
                     return true
                   },
                   headers,

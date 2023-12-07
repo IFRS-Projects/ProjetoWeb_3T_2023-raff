@@ -3,7 +3,6 @@ import { StoreProps } from '@/lib/types/store'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { jwtDecode } from 'jwt-decode'
-import { set, get } from 'react-hook-form'
 import { Permission, userLogin } from '@/lib/types/user'
 
 export type jwtType = {
@@ -15,7 +14,7 @@ export type jwtType = {
 
 export const AuthStore = create<StoreProps>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       state: {
         user: {
           email: '',

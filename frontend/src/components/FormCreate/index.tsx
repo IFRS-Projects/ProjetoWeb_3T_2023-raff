@@ -22,23 +22,18 @@ const schema = z.object({
 type formProps = z.infer<typeof schema>
 
 export default function Create() {
-  const {
-    handleSubmit,
-    register,
-    reset,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<formProps>({
-    mode: 'all',
-    reValidateMode: 'onChange',
-    resolver: zodResolver(schema),
-    defaultValues: {
-      description: '',
-      file: [],
-      title: '',
+  const { handleSubmit, register, reset, watch, setValue } = useForm<formProps>(
+    {
+      mode: 'all',
+      reValidateMode: 'onChange',
+      resolver: zodResolver(schema),
+      defaultValues: {
+        description: '',
+        file: [],
+        title: '',
+      },
     },
-  })
+  )
 
   const handleCreateMovie = async (data: formProps) => {
     const formData = new FormData()

@@ -1,4 +1,4 @@
-/* eslint-disable dot-notation */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
 import { AuthStore } from '@/stores/auth'
 import {
@@ -17,7 +17,6 @@ import Image from 'next/image'
 import logo from '@/img/logo.svg'
 import title from '@/img/title-name.svg'
 import { Separator } from '@/components/ui/separator'
-import { Permission } from '@/lib/types/user'
 
 export default function HomeLayout({
   children,
@@ -70,7 +69,8 @@ export default function HomeLayout({
                       >
                         Logout
                       </MenubarItem>
-                      {user?.permissions.includes(Permission['MASTER']) && (
+                      {/* @ts-ignore */}
+                      {user?.permissions.includes('MASTER') && (
                         <>
                           <MenubarSeparator />
                           <MenubarItem

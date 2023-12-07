@@ -30,23 +30,18 @@ const schema = z.object({
 type formProps = z.infer<typeof schema>
 
 export default function UpdateModal({ movie }: { movie: movieType }) {
-  const {
-    handleSubmit,
-    register,
-    reset,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<formProps>({
-    mode: 'all',
-    reValidateMode: 'onChange',
-    resolver: zodResolver(schema),
-    defaultValues: {
-      description: movie.description,
-      file: [],
-      title: movie.title,
+  const { handleSubmit, register, reset, watch, setValue } = useForm<formProps>(
+    {
+      mode: 'all',
+      reValidateMode: 'onChange',
+      resolver: zodResolver(schema),
+      defaultValues: {
+        description: movie.description,
+        file: [],
+        title: movie.title,
+      },
     },
-  })
+  )
 
   const handleCreateMovie = async (data: formProps) => {
     console.log(data)
