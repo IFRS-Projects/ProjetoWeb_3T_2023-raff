@@ -20,14 +20,14 @@ export default function HandleMovies() {
   }, [])
 
   return (
-    <div className="py-10">
-      <div className="mx-auto max-w-sm space-y-4 rounded-lg p-4">
+    <div className="w-full flex justify-center min-w-min">
+      <div className="flex flex-col space-y-4 rounded-lg p-4">
         {movies?.length ? (
           movies.map((movie) => {
             return (
               <div
                 key={movie.id}
-                className="bg-figma-gray2 w-3/4 h-16 rounded-xl gap-5 mb-4 p-2 flex items-center shadow-sm"
+                className="bg-figma-gray2 w-[800px] h-16 rounded-xl gap-5 mb-4 p-2 flex items-center shadow-sm"
               >
                 <div className="w-1/2">
                   <span className="text-base ml-2">{movie.title}</span>

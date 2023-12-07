@@ -77,7 +77,7 @@ export default function Rank() {
           </button>
         </div>
       </nav>
-      <div className="w-full h-fit py-2 flex justify-center space-x-2">
+      <div className="w-full h-fit py-2 flex justify-end mr-10 space-x-2">
         <ArrowFatLinesUp
           size={28}
           color="#fff"
@@ -111,11 +111,9 @@ export default function Rank() {
             >
               <div className="bg-figma-gray2 w-full h-16 rounded-xl gap-5 p-2 flex items-center shadow-sm">
                 <div className="w-1/2 flex space-x-4">
-                  <span className="text-base ml-2">{idx + 1}° </span>
-                  <Separator
-                    orientation="vertical"
-                    className="h-7 bg-figma-white relative"
-                  ></Separator>
+                  <span className="text-base ml-2 font-bold text-figma-purple">
+                    {idx + 1}°{' '}
+                  </span>
                   <span>{movie.title}</span>
                 </div>
 

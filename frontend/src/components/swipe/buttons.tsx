@@ -3,17 +3,12 @@ import { SwipeButtonProps } from '@/types/cards'
 import { Button } from '../ui/button'
 
 export default function SwButtons({ exit, removeCard, id }: SwipeButtonProps) {
-export default function SwButtons({ exit, removeCard, id }: SwipeButtonProps) {
   const handleSwipe = (action: 'left' | 'right') => {
     if (action === 'left') {
       exit(-200)
-      exit(-200)
     } else if (action === 'right') {
       exit(200)
-      exit(200)
     }
-    removeCard(id, action)
-  }
     removeCard(id, action)
   }
   return (
@@ -21,7 +16,6 @@ export default function SwButtons({ exit, removeCard, id }: SwipeButtonProps) {
       <Button
         onClick={async () => {
           handleSwipe('left')
-          await api.movies.update(id, { love_amount: 1 })
           await api.movies.update(id, { love_amount: 1 })
         }}
         className="px-3 py-2 text-textGrey font-semibold rounded-full w-24"
@@ -33,11 +27,10 @@ export default function SwButtons({ exit, removeCard, id }: SwipeButtonProps) {
           handleSwipe('right')
           await api.movies.update(id, { love_amount: -1 })
         }}
-        className="px-3 py-2 text-textGrey font-semibold rounded-full"
+        className="px-3 py-2 text-textGrey font-semibold rounded-full w-24"
       >
         Não assisto
       </Button>
     </div>
-  )
   )
 }

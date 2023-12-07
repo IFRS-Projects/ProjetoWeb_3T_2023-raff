@@ -97,7 +97,7 @@ export default function UpdateModal({ movie }: { movie: movieType }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Editar</Button>
+        <Button className="bg-figma-purple h-6 rounded-full">Editar</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
