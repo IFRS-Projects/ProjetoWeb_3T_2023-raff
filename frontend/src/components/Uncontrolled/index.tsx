@@ -1,5 +1,5 @@
 'use client'
-import { useRef } from "react"
+import { useRef } from 'react'
 
 export const Uncontrolled = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -10,7 +10,7 @@ export const Uncontrolled = () => {
   }
   return (
     <>
-      <input type='text' ref={inputRef} />
+      <input type="text" ref={inputRef} />
 
       <button onClick={handleButtonClick}>Get value</button>
     </>

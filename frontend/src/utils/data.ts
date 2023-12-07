@@ -1,4 +1,4 @@
-import Profile from './portrait.jpeg';
+import Profile from './portrait.jpeg'
 export const cardData = [
   {
     id: 0,
@@ -210,4 +210,4 @@ export const cardData = [
       },
     ],
   },
-];
+]

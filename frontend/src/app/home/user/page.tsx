@@ -1,4 +1,4 @@
-import List from '@/components/List/page'
+import List from '@/components/List'
 
 export default function Home() {
   return (

@@ -1,11 +1,5 @@
 import { CardProps } from '@/types/cards'
-import {
-  easeIn,
-  motion,
-  PanInfo,
-  useMotionValue,
-  useTransform,
-} from 'framer-motion'
+import { motion, PanInfo, useMotionValue, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { useState } from 'react'
 import SwipeButton from '@/components/swipe/buttons'
@@ -14,7 +8,6 @@ const Card = ({ data, active, removeCard }: CardProps) => {
   const [exitX, setExitX] = useState(0)
 
   const x = useMotionValue(0)
-  const input = [-200, 0, 200]
   const rotate = useTransform(x, [-200, 200], [-25, 25])
   const opacity = useTransform(x, [-200, -125, 0, 125, 200], [0, 1, 1, 1, 0])
 

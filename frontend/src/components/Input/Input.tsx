@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import { InputHTMLAttributes, forwardRef, useId } from 'react'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {

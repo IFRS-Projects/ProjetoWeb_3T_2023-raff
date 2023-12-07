@@ -5,7 +5,6 @@ import { movieType } from '@/lib/types/movie'
 import { ArrowFatLinesUp, ArrowFatLinesDown } from '@phosphor-icons/react'
 
 import { useState, useEffect } from 'react'
-import { toast } from 'sonner'
 import { useAuthStore } from '../../../../../hooks/useAuthStore'
 import { AuthStore } from '@/stores/auth'
 

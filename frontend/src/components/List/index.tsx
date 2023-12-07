@@ -1,15 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
-import { ArrowFatLineUp, ArrowFatLineDown } from '@phosphor-icons/react'
-import { Button } from '../ui/button'
-import { Separator } from '../ui/separator'
-import Image from 'next/image'
+
 import { useEffect, useState } from 'react'
 import { movieType } from '@/lib/types/movie'
 import api from '@/lib/api'
 import { AnimatePresence } from 'framer-motion'
 import Card from '../Card'
-
-import Lights from '@/utils/lights.png'
 
 export default function List() {
   const [movies, setMovies] = useState<movieType[]>([])
@@ -17,7 +13,6 @@ export default function List() {
     const allMovies = await api.movies.findAll()
     console.log(allMovies.data)
 
-    // @ts-ignore
     setMovies(allMovies.data)
   }
 

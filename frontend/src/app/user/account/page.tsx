@@ -1,5 +1,5 @@
 'use client'
-import { TrashSimple, User } from '@phosphor-icons/react'
+import { User } from '@phosphor-icons/react'
 import logo from '@/img/logo.svg'
 import {
   Menubar,
@@ -18,7 +18,6 @@ import { AuthStore } from '@/stores/auth'
 import { useAuthStore } from '../../../../hooks/useAuthStore'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -35,14 +34,7 @@ const schema = z.object({
 type formProps = z.infer<typeof schema>
 
 export default function Account() {
-  const {
-    handleSubmit,
-    register,
-    reset,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<formProps>({
+  const { handleSubmit } = useForm<formProps>({
     mode: 'all',
     reValidateMode: 'onChange',
     resolver: zodResolver(schema),
