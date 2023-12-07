@@ -15,7 +15,7 @@ model users {
   name        String
   email       String       @unique
   password    String
-  permissions Permission[]
+  permissions Permission[] @default([MEMBER])
   user_likes  user_likes[]
 
   created_at DateTime @default(now())
@@ -42,10 +42,11 @@ model user_likes {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  movie movies @relation(fields: [moviesId], references: [id])
-  user  users  @relation(fields: [usersId], references: [id])
+  movie movies @relation(fields: [moviesId], references: [id], onDelete: Cascade)
+  user  users  @relation(fields: [usersId], references: [id], onDelete: Cascade)
 }
 
 enum Permission {
-  LIST_USERS
+  MEMBER
+  MASTER
 }

@@ -7,12 +7,50 @@ import {
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
-import { PrismaService } from './../../prisma.service';
 import { MoviesRepository } from './repository/movies.repositorie';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class PrismaMovieService implements MoviesRepository {
   constructor(private prisma: PrismaService) {}
+  async userRank(userId: string) {
+    return await this.prisma.movies.findMany({
+      where: {
+        user_likes: {
+          some: {
+            usersId: userId,
+          },
+        },
+      },
+      orderBy: {
+        love_amount: 'desc',
+      },
+    });
+  }
+  async highLoved() {
+    return await this.prisma.movies.findMany({
+      where: {
+        love_amount: {
+          gte: 0,
+        },
+      },
+      orderBy: {
+        love_amount: 'desc',
+      },
+    });
+  }
+  async lowLoved() {
+    return await this.prisma.movies.findMany({
+      where: {
+        love_amount: {
+          lte: 0,
+        },
+      },
+      orderBy: {
+        love_amount: 'desc',
+      },
+    });
+  }
 
   async create(dto: CreateMovieDto & { image_url: string }) {
     return await this.prisma.movies.create({
@@ -33,6 +71,10 @@ export class PrismaMovieService implements MoviesRepository {
       },
     });
   }
+
+  async list() {
+    return await this.prisma.movies.findMany();
+  }
   async findOne(id: string) {
     try {
       return await this.prisma.movies.findUnique({
@@ -44,24 +86,20 @@ export class PrismaMovieService implements MoviesRepository {
   }
 
   async findRank() {
-    try {
-      return await this.prisma.movies.findMany({
-        where: {
-          user_likes: {
-            some: {
-              moviesId: {
-                not: 'null',
-              },
+    return await this.prisma.movies.findMany({
+      where: {
+        user_likes: {
+          some: {
+            moviesId: {
+              not: 'null',
             },
           },
         },
-        orderBy: {
-          love_amount: 'desc',
-        },
-      });
-    } catch (error) {
-      throw new HttpException('Not movies found', 404);
-    }
+      },
+      orderBy: {
+        love_amount: 'desc',
+      },
+    });
   }
   async update(id: string, updateMovieDto: UpdateMovieDto) {
     try {
@@ -102,7 +140,10 @@ export class PrismaMovieService implements MoviesRepository {
       const UserLikedSomeMovie: boolean =
         (await this.prisma.user_likes.count({
           where: {
-            usersId: userId,
+            moviesId: movieId,
+            AND: {
+              usersId: userId,
+            },
           },
         })) > 0;
       if (UserLikedSomeMovie) {
@@ -119,10 +160,13 @@ export class PrismaMovieService implements MoviesRepository {
     }
   }
   async remove(id: string) {
-    try {
-      await this.prisma.movies.delete({ where: { id } });
-    } catch (error) {
-      throw new NotFoundException();
-    }
+    const r = await this.prisma.movies.findUnique({
+      where: {
+        id,
+      },
+    });
+    console.log(r);
+
+    return await this.prisma.movies.delete({ where: { id } });
   }
 }

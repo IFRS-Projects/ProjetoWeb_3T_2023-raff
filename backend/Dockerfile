@@ -1,5 +1,7 @@
-FROM node:19-slim
+FROM node:20-slim AS base
 
+USER node
 WORKDIR /home/node/app
 
-CMD ['tail','-f','/dev/null']
+CMD npm i -g pnpm
+CMD pnpm 

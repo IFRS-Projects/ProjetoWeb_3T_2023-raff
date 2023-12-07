@@ -9,4 +9,8 @@ export abstract class MoviesRepository {
   abstract createLike(userId: string, movieId: string);
   abstract update(id: string, updateMovieDto: UpdateMovieDto);
   abstract remove(id: string);
+  abstract list();
+  abstract highLoved();
+  abstract lowLoved();
+  abstract userRank(userId: string);
 }

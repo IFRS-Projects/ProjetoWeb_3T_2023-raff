@@ -10,7 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { signInDto } from './dto/signIn.dto';
+import { FormDataRequest } from 'nestjs-form-data';
+import { SignInDto } from './dto/signIn.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,7 +19,10 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: signInDto) {
+  @FormDataRequest()
+  signIn(@Body() signInDto: SignInDto) {
+    console.log(signInDto);
+
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
 

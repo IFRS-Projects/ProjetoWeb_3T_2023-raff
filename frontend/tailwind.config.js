@@ -6,7 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -50,6 +50,12 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        figma: {
+          purple: "#6D28D9",
+          gray: '#0E1527',
+          white: '#D9D9D9',
+          gray2: '#222A3E'
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
