@@ -45,7 +45,7 @@ export default function HomeLayout({
               <House size={24} weight="thin" />
             </button>
             <Separator orientation="vertical" className="h-6"></Separator>
-            <Menubar className="rounded-xl">
+            <Menubar className="rounded-xl ">
               <MenubarMenu>
                 <MenubarTrigger className="rounded-xl">
                   <User size={18} />
@@ -60,7 +60,7 @@ export default function HomeLayout({
                       <MenubarItem
                         className="rounded-[6px]"
                         onClick={() => {
-                          push('/user/account')
+                          push('/home/account')
                         }}
                       >
                         Perfil
