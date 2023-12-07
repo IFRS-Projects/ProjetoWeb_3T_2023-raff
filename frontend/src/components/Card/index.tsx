@@ -57,11 +57,11 @@ const Card = ({ data, active, removeCard }: CardProps) => {
             <div className="mt-3 uppercase flex items-center justify-between px-4 font-sans text-xl font-medium text-textGrey">
               <p>{data.title}</p>
             </div>
-            <p className="mt-3 px-4 font-sans text-base font-normal text-textGrey opacity-70">
+            <p className="mt-3 px-4 font-sans text-base font-normal text-textGrey opacity-70 truncate">
               {data.description}
             </p>
             <div className="">
-              <p className="mt-3 px-4 text-lg font-medium">
+              <p className="mt-10 px-4 text-lg font-medium">
                 Votos:{' '}
                 <span className="text-figma-purple text-xl font-bold">
                   {data.love_amount}
