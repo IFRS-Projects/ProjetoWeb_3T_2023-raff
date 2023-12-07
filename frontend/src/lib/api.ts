@@ -199,5 +199,8 @@ export default {
     list: async (): Promise<resultType<movieType[]>> => {
       return await basicFetch('GET', `movies/list`, {}, {})
     },
+    userRank: async (): Promise<resultType<movieType[]>> => {
+      return await basicFetch('GET', `movies/rank/user/`, {}, {})
+    },
   },
 }

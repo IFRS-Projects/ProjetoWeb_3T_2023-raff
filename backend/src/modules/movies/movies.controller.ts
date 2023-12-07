@@ -11,7 +11,6 @@ import {
   Req,
   UnauthorizedException,
   HttpCode,
-  UseGuards,
 } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -22,10 +21,8 @@ import multerConfig from '../files/multer-config';
 import { Request } from 'express';
 import { UserId } from './../../../common/decorator/get-user-id.decorator';
 import { FormDataRequest } from 'nestjs-form-data';
-import { HasPermission } from 'common/decorator/has-permission.decorator';
-import { AuthGuard } from '../auth/auth.guard';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @Controller('movies')
 export class MoviesController {
   constructor(
@@ -33,7 +30,7 @@ export class MoviesController {
     private readonly fileService: FilesService,
   ) {}
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @Post()
   @UseInterceptors(FileInterceptor('file', multerConfig))
   async create(
@@ -47,43 +44,43 @@ export class MoviesController {
     return await this.moviesService.create(newDto);
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MEMBER')
   @Get('/')
   async findAll(@UserId() userId: string) {
     return await this.moviesService.findAll(userId);
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @Get('/rank')
   async findRank() {
     return await this.moviesService.findRank();
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @Get('/rank/high')
   async findHigh() {
     return await this.moviesService.highLoved();
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @Get('/rank/low')
   async findLow() {
     return await this.moviesService.lowLoved();
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @Get('/list')
   async list() {
     return await this.moviesService.list();
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @Get('/:id')
   async findOne(@Param('id') id: string) {
     return await this.moviesService.findOne(id);
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MEMBER')
   @Patch(':id')
   @FormDataRequest()
   async update(
@@ -96,18 +93,25 @@ export class MoviesController {
     }
     if (updateMovieDto.love_amount) {
       await this.moviesService.createLike(userId, id);
+      return await this.moviesService.update(id, {
+        ...updateMovieDto,
+        love_amount: Number(updateMovieDto.love_amount),
+      });
     }
-
     return await this.moviesService.update(id, {
       ...updateMovieDto,
-      love_amount: Number(updateMovieDto.love_amount),
     });
   }
 
-  @HasPermission('MASTER')
+  // @HasPermission('MASTER')
   @HttpCode(204)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.moviesService.remove(id);
+  }
+
+  @Get('/rank/user/')
+  async userRank(@UserId() userId: string) {
+    return await this.moviesService.userRank(userId);
   }
 }

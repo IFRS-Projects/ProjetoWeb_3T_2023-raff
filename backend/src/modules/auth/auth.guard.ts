@@ -47,10 +47,16 @@ export class AuthGuard implements CanActivate {
       );
 
       if (!hasPermission) {
+        console.log(userPermissions);
+
+        console.log('permission not found');
+
         throw new UnauthorizedException();
       }
       request['user'] = payload;
-    } catch {
+    } catch (err) {
+      console.log('algum outro erro', err);
+
       throw new UnauthorizedException();
     }
 

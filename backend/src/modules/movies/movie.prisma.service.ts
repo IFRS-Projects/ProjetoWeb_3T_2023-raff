@@ -13,29 +13,43 @@ import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class PrismaMovieService implements MoviesRepository {
   constructor(private prisma: PrismaService) {}
+  async userRank(userId: string) {
+    return await this.prisma.movies.findMany({
+      where: {
+        user_likes: {
+          some: {
+            usersId: userId,
+          },
+        },
+      },
+      orderBy: {
+        love_amount: 'desc',
+      },
+    });
+  }
   async highLoved() {
     return await this.prisma.movies.findMany({
       where: {
         love_amount: {
           gte: 0,
-        }
+        },
       },
       orderBy: {
-        love_amount: 'desc'
-      }
-    })
+        love_amount: 'desc',
+      },
+    });
   }
   async lowLoved() {
     return await this.prisma.movies.findMany({
       where: {
         love_amount: {
           lte: 0,
-        }
+        },
       },
       orderBy: {
-        love_amount: 'desc'
-      } 
-    })
+        love_amount: 'desc',
+      },
+    });
   }
 
   async create(dto: CreateMovieDto & { image_url: string }) {

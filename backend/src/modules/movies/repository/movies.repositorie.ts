@@ -12,4 +12,5 @@ export abstract class MoviesRepository {
   abstract list();
   abstract highLoved();
   abstract lowLoved();
+  abstract userRank(userId: string);
 }
