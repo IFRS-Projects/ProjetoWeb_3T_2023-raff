@@ -11,7 +11,7 @@ import {
   MenubarItem,
 } from '@/components/ui/menubar'
 import { useAuthStore } from '../../../hooks/useAuthStore'
-import { User } from '@phosphor-icons/react'
+import { House, User } from '@phosphor-icons/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import logo from '@/img/logo.svg'
@@ -38,13 +38,19 @@ export default function HomeLayout({
             <Image className="w-24" src={title} alt="title" />
           </div>
           <div className="flex items-center gap-3">
+            <button
+              className="cursor-pointer"
+              onClick={() => push('/home/user')}
+            >
+              <House size={24} weight="thin" />
+            </button>
             <Separator orientation="vertical" className="h-6"></Separator>
-            <Menubar className="rounded-md">
+            <Menubar className="rounded-xl">
               <MenubarMenu>
                 <MenubarTrigger className="rounded-xl">
                   <User size={18} />
                 </MenubarTrigger>
-                <MenubarContent>
+                <MenubarContent className="rounded-[6px]">
                   {user?.sub !== '' ? (
                     <>
                       <MenubarLabel className="rounded-xl w-full justify-center flex">
@@ -52,7 +58,7 @@ export default function HomeLayout({
                       </MenubarLabel>
                       <MenubarSeparator />
                       <MenubarItem
-                        className="rounded-xl"
+                        className="rounded-[6px]"
                         onClick={() => {
                           push('/user/account')
                         }}
@@ -61,7 +67,7 @@ export default function HomeLayout({
                       </MenubarItem>
                       <MenubarSeparator />
                       <MenubarItem
-                        className="rounded-xl"
+                        className="rounded-[6px]"
                         onClick={() => {
                           logout()
                           push('/API/auth/user/logout')
@@ -74,7 +80,7 @@ export default function HomeLayout({
                         <>
                           <MenubarSeparator />
                           <MenubarItem
-                            className="rounded-xl"
+                            className="rounded-[6px]"
                             onClick={() => push('/home/admin/rank')}
                           >
                             Dashboard

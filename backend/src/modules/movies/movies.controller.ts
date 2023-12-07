@@ -20,7 +20,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import multerConfig from '../files/multer-config';
 import { Request } from 'express';
 import { UserId } from './../../../common/decorator/get-user-id.decorator';
-import { FormDataRequest } from 'nestjs-form-data';
 
 // @UseGuards(AuthGuard)
 @Controller('movies')
@@ -82,15 +81,27 @@ export class MoviesController {
 
   // @HasPermission('MEMBER')
   @Patch(':id')
-  @FormDataRequest()
+  @UseInterceptors(FileInterceptor('file', multerConfig))
   async update(
     @Param('id') id: string,
     @Body() updateMovieDto: UpdateMovieDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: Request,
     @UserId() userId: string,
   ) {
+    let newDto = { ...updateMovieDto, image_url: '' };
     if (!userId) {
       throw new UnauthorizedException('User not logged');
     }
+    if (file) {
+      const image_url = await this.fileService.create(file, req);
+      newDto = { ...updateMovieDto, image_url };
+    }
+
+    if (newDto.image_url === '') {
+      delete newDto.image_url;
+    }
+
     if (updateMovieDto.love_amount) {
       await this.moviesService.createLike(userId, id);
       return await this.moviesService.update(id, {
@@ -99,7 +110,7 @@ export class MoviesController {
       });
     }
     return await this.moviesService.update(id, {
-      ...updateMovieDto,
+      ...newDto,
     });
   }
 
