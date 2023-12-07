@@ -61,14 +61,20 @@ const Card = ({ data, active, removeCard }: CardProps) => {
                 }}
               />
             </div>
-            <div className="mt-6 flex items-center justify-between px-4 font-sans text-2xl font-medium text-textGrey">
+            <div className="mt-3 uppercase flex items-center justify-between px-4 font-sans text-xl font-medium text-textGrey">
               <p>{data.title}</p>
             </div>
-            <p className="mt-3 px-4 font-sans text-lg font-medium text-textGrey">
+            <p className="mt-3 px-4 font-sans text-base font-normal text-textGrey opacity-70">
               {data.description}
             </p>
-
-            <p className="mt-5 px-4 text-xl font-medium">{data.love_amount}</p>
+            <div className="">
+              <p className="mt-3 px-4 text-lg font-medium">
+                Votos:{' '}
+                <span className="text-figma-purple text-xl font-bold">
+                  {data.love_amount}
+                </span>
+              </p>
+            </div>{' '}
             {/* <div className="mt-3 mb-4 grid grid-cols-2 gap-4 px-4">
               {data.tracks.map((track, id) => {
                 return (

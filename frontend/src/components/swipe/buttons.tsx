@@ -1,41 +1,36 @@
-import api from '@/lib/api';
-import { SwipeButtonProps } from '@/types/cards';
+import api from '@/lib/api'
+import { SwipeButtonProps } from '@/types/cards'
+import { Button } from '../ui/button'
 
-export default function SwButtons({
-  exit,
-  removeCard,
-  id,
-}: SwipeButtonProps) {
+export default function SwButtons({ exit, removeCard, id }: SwipeButtonProps) {
   const handleSwipe = (action: 'left' | 'right') => {
     if (action === 'left') {
-      exit(-200);
+      exit(-200)
     } else if (action === 'right') {
-      exit(200);
+      exit(200)
     }
-    removeCard(id, action);
-  };
+    removeCard(id, action)
+  }
   return (
     <div className="flex items-center space-x-8 absolute top-10">
-      <button
+      <Button
         onClick={async () => {
           handleSwipe('left')
-          await api.movies.update(id,{love_amount:1})
+          await api.movies.update(id, { love_amount: 1 })
         }}
-        className="px-3 py-2 bg-teal-800 text-textGrey font-semibold rounded-md"
+        className="px-3 py-2 text-textGrey font-semibold rounded-full w-24"
       >
         Assito
-      </button>
-      <button
-        onClick={async () =>
-        {
+      </Button>
+      <Button
+        onClick={async () => {
           handleSwipe('right')
-          await api.movies.update(id,{love_amount:-1})
-        }
-        }
-        className="px-3 py-2 bg-teal-800 text-textGrey font-semibold rounded-md"
+          await api.movies.update(id, { love_amount: -1 })
+        }}
+        className="px-3 py-2 text-textGrey font-semibold rounded-full"
       >
         Não assisto
-      </button>
+      </Button>
     </div>
-  );
+  )
 }
